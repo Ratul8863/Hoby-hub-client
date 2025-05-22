@@ -1,0 +1,20 @@
+ul a{
+    margin-right: 20px;
+    padding: 6px;
+    
+}
+
+ul a:hover
+{
+
+  border-radius: 20%;
+  background-color: #62a0e3;
+}
+
+ul a.active
+{
+    text-decoration-line: underline;
+    /* border: solid;
+    border-radius: 20%;
+     background-color: #a1e362;*/
+}
