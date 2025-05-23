@@ -98,7 +98,7 @@ function Mygroups() {
               userGroups.map((group, i) => (
                 <tr
                   key={group._id}
-                  className="border-t border-gray-200 dark:border-gray-700 hover:bg-cyan-500 dark:hover:bg-cyan-500"
+                  className="border-t border-gray-200 dark:border-gray-700 hover:bg-blue-200 dark:hover:bg-cyan-500"
                 >
                   <td>{i + 1}</td>
                   <td>{group.groupName}</td>
@@ -109,13 +109,13 @@ function Mygroups() {
                   <td className="space-x-2">
                     <button
                       onClick={() => handleViewClick(group._id)}
-                      className="btn btn-sm btn-primary"
+                      className="btn  btn-outline btn-success hover:bg-success btn-sm"
                     >
                       Info
                     </button>
                     <button
                       onClick={() => handleUpdateClick(group)}
-                      className="btn btn-sm btn-info"
+                      className="btn btn-sm btn-secondary  btn-outline hover:bg-secondary"
                     >
                       Update
                     </button>

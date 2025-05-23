@@ -152,7 +152,7 @@ function Navbar() {
                 className="w-8 h-8 rounded-full object-cover"
               />
             </div>
-            <button onClick={handlesignout} className="btn btn-outline btn-sm">
+            <button onClick={handlesignout} className="btn btn-outline btn-secondary hover:bg-secondary btn-sm">
               Logout
             </button>
           </>
@@ -207,7 +207,7 @@ function Navbar() {
               </div>
               <button
                 onClick={handlesignout}
-                className="btn btn-outline btn-sm"
+                className="btn btn-outline btn-secondary hover:bg-secondary btn-sm"
               >
                 Logout
               </button>
