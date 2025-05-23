@@ -2,7 +2,7 @@
 
 @import "tailwindcss";
 @plugin "daisyui";
-
+@custom-variant dark (&:where(.dark, .dark *));
 @plugin "daisyui/theme" {
     name: "light";
     default: true;
@@ -21,4 +21,94 @@
      @apply bg-base-300
   } */
 
-  
+  @keyframes moving-shadow {
+  0% {
+    box-shadow: 0 0 10px 2px rgba(1, 88, 180, 0.5);
+  }
+  25% {
+    box-shadow: 10px 0 15px 3px rgba(1, 88, 180, 0.5);
+  }
+  50% {
+    box-shadow: 0 10px 15px 3px rgba(1, 88, 180, 0.5);
+  }
+  75% {
+    box-shadow: -10px 0 15px 3px rgba(1, 88, 180, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 10px 2px rgba(1, 88, 180, 0.5);
+  }
+}
+
+.animate-moving-shadow {
+  animation: moving-shadow 3s infinite ease-in-out;
+}
+
+
+@keyframes moving-shadow2 {
+  0% {
+    box-shadow: 0 0 10px 2px rgb(14, 139, 255);
+  }
+  25% {
+    box-shadow: 10px 0 15px 3px rgb(14, 139, 255);
+  }
+  50% {
+    box-shadow: 0 10px 15px 3px rgb(14, 139, 255);
+  }
+  75% {
+    box-shadow: -10px 0 15px 3px rgb(14, 139, 255);
+  }
+  100% {
+    box-shadow: 0 0 10px 2px rgb(14, 139, 255);
+  }
+}
+
+.animate-moving-shadow2 {
+  animation: moving-shadow2 3s infinite ease-in-out;
+}
+
+
+
+@keyframes moving-shadow3 {
+  0% {
+    box-shadow: 0 0 10px 2px rgb(165, 202, 238);
+  }
+  25% {
+    box-shadow: 10px 0 15px 3px rgb(165, 202, 238);
+  }
+  50% {
+    box-shadow: 0 10px 15px 3px rgb(165, 202, 238);
+  }
+  75% {
+    box-shadow: -10px 0 15px 3px rgb(165, 202, 238);
+  }
+  100% {
+    box-shadow: 0 0 10px 2px rgb(165, 202, 238);
+  }
+}
+
+.animate-moving-shadow3 {
+  animation: moving-shadow3 3s infinite ease-in-out;
+}
+
+
+@keyframes moving-shadow4 {
+  0% {
+    box-shadow: 0 0 10px 2px rgb(110, 175, 239);
+  }
+  25% {
+    box-shadow: 10px 0 15px 3px rgb(110, 175, 239);
+  }
+  50% {
+    box-shadow: 0 10px 15px 3px rgb(110, 175, 239);
+  }
+  75% {
+    box-shadow: -10px 0 15px 3px rgb(110, 175, 239);
+  }
+  100% {
+    box-shadow: 0 0 10px 2px rgb(110, 175, 239);
+  }
+}
+
+.animate-moving-shadow4 {
+  animation: moving-shadow4 3s infinite ease-in-out;
+}

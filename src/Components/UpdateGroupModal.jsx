@@ -1,19 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Swal from 'sweetalert2';
-import { Valuecontext } from '../Root/Root'; // Adjust import path as needed
+import { Valuecontext } from '../Root/Root';
 
-export default function UpdateGroupModal({ group, isOpen, onClose, onUpdate }) {
+function UpdateGroupModal({ group, isOpen, onClose, onUpdate }) {
   const { users } = useContext(Valuecontext);
 
   const categories = [
-    "Drawing & Painting",
-    "Photography",
-    "Video Gaming",
-    "Fishing",
-    "Running",
-    "Cooking",
-    "Reading",
-    "Writing"
+    "Drawing & Painting", "Photography", "Video Gaming",
+    "Fishing", "Running", "Cooking", "Reading", "Writing"
   ];
 
   const [formData, setFormData] = useState({
@@ -34,7 +28,7 @@ export default function UpdateGroupModal({ group, isOpen, onClose, onUpdate }) {
         description: group.description || '',
         location: group.location || '',
         maxMembers: group.maxMembers || '',
-        startDate: group.startDate || '',
+        startDate: group.startDate ? group.startDate.slice(0, 10) : '',
         imageUrl: group.imageUrl || '',
       });
     }
@@ -51,7 +45,7 @@ export default function UpdateGroupModal({ group, isOpen, onClose, onUpdate }) {
     fetch(`http://localhost:4500/groups/${group._id}`, {
       method: 'PUT',
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({ ...formData, name: formData.groupName }),
     })
       .then(res => res.json())
       .then(data => {
@@ -79,17 +73,21 @@ export default function UpdateGroupModal({ group, isOpen, onClose, onUpdate }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white rounded-lg p-6 max-w-3xl w-full relative">
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
+      <div className="bg-white text-black  rounded-lg p-6 w-full max-w-lg relative shadow-lg transition-all duration-300">
+        
+        {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-2 right-3 text-2xl font-bold"
-          aria-label="Close modal"
+          className="absolute top-2 right-4 text-black text-2xl font-bold hover:text-red-400"
         >
           &times;
         </button>
-        <h2 className="text-3xl font-bold text-center mb-6">Update Hobby Group</h2>
-        <form onSubmit={handleSubmit} className="space-y-5">
+
+        <h2 className="text-2xl font-bold mb-6">Update Group</h2>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+
           <input
             type="text"
             name="groupName"
@@ -100,6 +98,7 @@ export default function UpdateGroupModal({ group, isOpen, onClose, onUpdate }) {
             className="input input-bordered w-full"
             readOnly
           />
+
           <select
             name="category"
             value={formData.category}
@@ -112,15 +111,16 @@ export default function UpdateGroupModal({ group, isOpen, onClose, onUpdate }) {
               <option key={idx} value={cat}>{cat}</option>
             ))}
           </select>
+
           <textarea
             name="description"
             value={formData.description}
             onChange={handleChange}
             required
-            rows="3"
             placeholder="Group Description"
             className="textarea textarea-bordered w-full"
           />
+
           <input
             type="text"
             name="location"
@@ -130,6 +130,7 @@ export default function UpdateGroupModal({ group, isOpen, onClose, onUpdate }) {
             placeholder="Meeting Location"
             className="input input-bordered w-full"
           />
+
           <input
             type="number"
             name="maxMembers"
@@ -139,6 +140,7 @@ export default function UpdateGroupModal({ group, isOpen, onClose, onUpdate }) {
             placeholder="Max Members"
             className="input input-bordered w-full"
           />
+
           <input
             type="date"
             name="startDate"
@@ -147,6 +149,7 @@ export default function UpdateGroupModal({ group, isOpen, onClose, onUpdate }) {
             required
             className="input input-bordered w-full"
           />
+
           <input
             type="text"
             name="imageUrl"
@@ -156,23 +159,31 @@ export default function UpdateGroupModal({ group, isOpen, onClose, onUpdate }) {
             placeholder="Image URL"
             className="input input-bordered w-full"
           />
+
           <div className="grid md:grid-cols-2 gap-4">
             <input
               type="text"
               value={users?.displayName || ''}
               readOnly
               className="input input-bordered w-full"
+              placeholder="Your Name"
             />
             <input
               type="email"
               value={users?.email || ''}
               readOnly
               className="input input-bordered w-full"
+              placeholder="Your Email"
             />
           </div>
-          <button type="submit" className="btn btn-secondary w-full">Update Group</button>
+
+          <button type="submit" className="btn btn-secondary w-full">
+            Update Group
+          </button>
         </form>
       </div>
     </div>
   );
 }
+
+export default UpdateGroupModal;

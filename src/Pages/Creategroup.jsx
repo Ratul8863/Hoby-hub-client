@@ -1,22 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { toast } from 'react-toastify';
+import { Valuecontext } from '../Root/Root';
+import { Navigate, useNavigate } from 'react-router';
 
 function Creategroup() {
-  // Simulated authenticated user data (replace with actual user context)
-  const user = {
-    displayName: 'Jane Doe',
-    email: 'jane@example.com'
-  };
+  const { users } = useContext(Valuecontext);
+  const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    groupName: '',
-    category: '',
-    description: '',
-    location: '',
-    maxMembers: '',
-    startDate: '',
-    imageUrl: '',
-  });
+  if (!users || !users.email) {
+    return <Navigate to="/login" />;
+  }
 
   const categories = [
     "Drawing & Painting",
@@ -26,159 +19,123 @@ function Creategroup() {
     "Running",
     "Cooking",
     "Reading",
-    "Writing"
+    "Writing",
   ];
-
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // const groupData = {
-    //   ...formData,
-    //   userName: user.displayName,
-    //   userEmail: user.email
-    // };
     const formdata = new FormData(e.target);
     const inputdata = Object.fromEntries(formdata.entries());
-    console.log(inputdata);
 
-    // Replace this with a fetch/axios call to your backend
-    // console.log('Submitting:', groupData);
+    inputdata.userName = users?.displayName || "Anonymous";
+    inputdata.userEmail = users?.email;
 
-
-
-    fetch('http://localhost:4500/groups', { 
-            method: 'POST', 
-            headers:
-            { 
-                "Content-Type": "application/json", 
-            }, 
-            body: JSON.stringify(inputdata), 
-
-        }) 
-            .then(res => res.json()) 
-            .then(data => { 
-                console.log('after the post', data) 
-                if (data._id)
-                {
-                    alert("user added successfully")
-                //  user._id = data._id ;
-                //  const newuser = [...User, data] 
-
-                // setUser(newuser) 
-                }
-                // e.target.reset() 
-
-            }) 
-
-}
-
-  //   toast.success('Group created successfully!');
-  //   setFormData({
-  //     groupName: '',
-  //     category: '',
-  //     description: '',
-  //     location: '',
-  //     maxMembers: '',
-  //     startDate: '',
-  //     imageUrl: '',
-  //   });
-  // };
+    fetch('http://localhost:4500/groups', {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(inputdata),
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.insertedId || data._id) {
+          toast.success("Group created successfully!");
+          navigate("/Allgroups");
+        } else {
+          toast.error("Failed to create group");
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        toast.error("An error occurred while creating the group.");
+      });
+  };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
-      <h2 className="text-3xl font-bold text-center mb-6">Create a New Hobby Group</h2>
-      <form onSubmit={handleSubmit} className="bg-white shadow-lg p-6 rounded-lg space-y-5">
-        <input
-          type="text"
-          name="groupName"
-          required
-          placeholder="Group Name"
-          className="input input-bordered w-full"
-     
-        
-        />
+    <div className="max-w-3xl mx-auto px-4 py-10 ">
+      <h2 className="text-3xl font-bold text-center mb-8">Create a New Hobby Group</h2>
+     <form
+  onSubmit={handleSubmit}
+  className="bg-white shadow-lg p-6 rounded-lg space-y-5 dark:bg-gray-900 dark:text-white animate-moving-shadow"
+>
+  <input
+    type="text"
+    name="groupName"
+    required
+    placeholder="Group Name"
+    className="input input-bordered w-full dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+  />
 
-        <select
-          name="category"
-          required
-          className="select select-bordered w-full"
-        
-         
-        >
-          <option value="">Select Hobby Category</option>
-          {categories.map((cat, idx) => (
-            <option key={idx} value={cat}>{cat}</option>
-          ))}
-        </select>
+<p className='mb-[2px] font-medium'>Select Hobby Category</p>
+  <select
+    name="category"
+    required
+    className="select select-bordered w-full dark:bg-gray-800 dark:border-gray-600 dark:text-white hover:bg-blue-500"
 
-        <textarea
-          name="description"
-          required
-          rows="3"
-          placeholder="Group Description"
-          className="textarea textarea-bordered w-full"
-    
-         
-        />
-
-        <input
-          type="text"
-          name="location"
-          required
-          placeholder="Meeting Location"
-          className="input input-bordered w-full"
-   
-         
-        />
-
-        <input
-          type="number"
-          name="maxMembers"
-          required
-          placeholder="Max Members"
-          className="input input-bordered w-full"
-       
-         
-        />
-
-        <input
-          type="date"
-          name="startDate"
-          required
-          className="input input-bordered w-full"
-        
-         
-        />
-
-        <input
-          type="text"
-          name="imageUrl"
-          required
-          placeholder="Image URL"
-          className="input input-bordered w-full"
-    
-         
-        />
-
-        <div className="grid md:grid-cols-2 gap-4">
-          <input
-            type="text"
-            readOnly
+  >
       
-            className="input input-bordered w-full"
-          />
-          <input
-            type="email"
-            readOnly
-         
-            className="input input-bordered w-full"
-          />
-        </div>
+    {categories.map((cat, idx) => (
+      <option key={idx} value={cat}>{cat}</option>
+    ))}
+  </select>
 
-        <button type="submit" className="btn btn-primary w-full">Create Group</button>
-      </form>
+  <textarea
+    name="description"
+    required
+    rows="3"
+    placeholder="Group Description"
+    className="textarea textarea-bordered w-full dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+  />
+
+  <input
+    type="text"
+    name="location"
+    required
+    placeholder="Meeting Location"
+    className="input input-bordered w-full dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+  />
+
+  <input
+    type="number"
+    name="maxMembers"
+    required
+    placeholder="Max Members"
+    className="input input-bordered w-full dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+  />
+<p className='mb-[2px] font-medium'>Start Date (deadline equivalent)</p>
+  <input
+    type="date"
+    name="startDate"
+    required
+    className="input input-bordered w-full dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+  />
+
+  <input
+    type="text"
+    name="imageUrl"
+    required
+    placeholder="Image URL"
+    className="input input-bordered w-full dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+  />
+
+  <div className="grid md:grid-cols-2 gap-4">
+    <input
+      type="text"
+      readOnly
+      value={users?.displayName || "Anonymous"}
+      className="input input-bordered w-full dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+    />
+    <input
+      type="email"
+      readOnly
+      value={users?.email || ""}
+      className="input input-bordered w-full dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+    />
+  </div>
+
+  <button type="submit" className="btn btn-secondary hover:bg-red-800 w-full">Create Group</button>
+</form>
+
     </div>
   );
 }

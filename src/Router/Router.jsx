@@ -10,6 +10,7 @@ import Creategroup from "../Pages/Creategroup";
 
 import Groupdetail from "../Pages/Groupdetail";
 import Updategroup from "../Pages/Updategroup";
+import Privetroute from "../Components/Privetroute";
 
 
 
@@ -24,13 +25,15 @@ export const router = createBrowserRouter([
       {
         index: true,
         // loader: () => fetch('/data.json'),
+       
         element: <Home />,
         // hydrateFallbackElement : <Loading></Loading>
       },
       {
         path: "/Allgroups",
         // loader: () => fetch('/data.json'),
-        element: <Allgroups></Allgroups>
+       
+        element:  <Allgroups></Allgroups>
         // hydrateFallbackElement : <Loading></Loading>
       },
       {
@@ -44,11 +47,15 @@ export const router = createBrowserRouter([
       {
         path: "/myGroups",
          loader : () => fetch('http://localhost:4500/groups'),
-        element: <Mygroups></Mygroups>
+        element: <Privetroute>
+          <Mygroups></Mygroups>
+        </Privetroute>
       },
       {
         path: "/createGroup",
-        element: <Creategroup></Creategroup>
+        element: <Privetroute>
+          <Creategroup></Creategroup>
+        </Privetroute>
       },
       {
         path: "/Updategroups/:id",
@@ -58,7 +65,7 @@ export const router = createBrowserRouter([
         {
         path: "/groupdetails/:id",
           loader : ({params}) => fetch(`http://localhost:4500/groups/${params.id}`),
-        element: <Groupdetail></Groupdetail>
+        element: <Privetroute><Groupdetail></Groupdetail></Privetroute>
       },
       
     ]

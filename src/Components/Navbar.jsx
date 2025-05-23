@@ -1,15 +1,18 @@
-import React, { useContext, useState } from "react";
-
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-
-// import { AuthContext } from '../contexts/AuthProvider'; // Uncomment and adjust path
+import { Valuecontext } from "../Root/Root";
+import { MdOutlineDarkMode } from "react-icons/md";
+import { MdOutlineLightMode } from "react-icons/md";
+import { Fade } from "react-awesome-reveal";
 
 function Navbar() {
-  // const { user, logout, toggleTheme, theme } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { handlesignout, users,setTheme,theme } = useContext(Valuecontext);
 
-  const handleLogout = () => {
-    // logout();
+  
+
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
   };
 
   const toggleMenu = () => {
@@ -25,7 +28,7 @@ function Navbar() {
           setMenuOpen(false);
         }}
         className={({ isActive }) =>
-          isActive ? "text-primary font-semibold" : undefined
+          isActive ? "text-orange-700 font-semibold" : undefined
         }
       >
         Home
@@ -37,41 +40,49 @@ function Navbar() {
           setMenuOpen(false);
         }}
         className={({ isActive }) =>
-          isActive ? "text-primary font-semibold" : undefined
+          isActive ? "text-orange-700 font-semibold" : undefined
         }
       >
         All Groups
       </NavLink>
-      {/* {user && ( */}
-      <>
-        <NavLink
-          to="/createGroup"
-          onClick={() => setMenuOpen(false)}
-          className={({ isActive }) =>
-            isActive ? "text-primary font-semibold" : undefined
-          }
+ <button
+          onClick={toggleTheme}
+          className="btn btn-circle btn-ghost ml-28 md:hidden"
+          aria-label="Toggle Theme"
         >
-          Create Group
-        </NavLink>
-        <NavLink
-          to="/myGroups"
-          onClick={() => setMenuOpen(false)}
-          className={({ isActive }) =>
-            isActive ? "text-primary font-semibold" : undefined
-          }
-        >
-          My Groups
-        </NavLink>
-      </>
-      {/* )} */}
+          {theme === "dark" ? <MdOutlineLightMode size={20} /> : <MdOutlineDarkMode size={20} />}
+        </button>
+      {users && (
+        <>
+          <NavLink
+            to="/createGroup"
+            onClick={() => setMenuOpen(false)}
+            className={({ isActive }) =>
+              isActive ? "text-orange-700 font-semibold" : undefined
+            }
+          >
+            Create Group
+          </NavLink>
+          <NavLink
+            to="/myGroups"
+            onClick={() => setMenuOpen(false)}
+            className={({ isActive }) =>
+              isActive ? "text-orange-700 font-semibold" : undefined
+            }
+          >
+            My Groups
+          </NavLink>
+        </>
+      )}
     </>
   );
 
   return (
-    <nav className="navbar bg-base-100 shadow-md px-4 py-3">
+   
+     <nav className="bg-gradient-to-br navbar bg-base-100 shadow-md dark:shadow-blue-600  dark:from-gray-950 dark:to-gray-800  mb-4 px-4 py-5 dark:bg-gray-900 dark:text-white">
       {/* Left side */}
-      <div className="flex items-center justify-start space-x-2">
-        {/* Mobile Hamburger */}
+      <Fade   direction='down' triggerOnce={true}>
+         <div className="flex items-center justify-start space-x-2">
         <button
           className="btn btn-ghost lg:hidden"
           onClick={toggleMenu}
@@ -102,90 +113,50 @@ function Navbar() {
           </svg>
         </button>
 
-        {/* Logo */}
         <NavLink
           to="/"
-          className="btn btn-ghost font-bold text-xl flex items-center gap-2"
+          className="btn btn-ghost    font-bold text-xl flex items-center gap-2"
           onClick={() => setMenuOpen(false)}
         >
           <img
-            className="w-8 h-8"
-            src="https://cdn-icons-png.flaticon.com/512/854/854878.png"
+            className="w-8 h-8 ml-[-20Px] md:ml-0"
+            src="https://i.ibb.co/39WLdycb/image.png"
             alt="HobbyHub Logo"
           />
           <span className="text-sm md:text-2xl">HobbyHub</span>
         </NavLink>
       </div>
 
-      {/* Center: Desktop Menu */}
-      <div className="hidden lg:flex flex-1 justify-center">
+      {/* Center Links */}
+      <div className="hidden md:flex flex-1 justify-center">
         <ul className="menu menu-horizontal px-1 gap-6">{links}</ul>
       </div>
 
-      {/* Right side: Auth & Theme */}
-      <div className="flex items-center space-x-4">
-        {/* Theme toggle (uncomment when ready) */}
-        {/* {toggleTheme && (
-          <button
-            onClick={toggleTheme}
-            className="btn btn-sm btn-outline"
-            aria-label="Toggle Dark/Light Mode"
-          >
-            {theme === "light" ? "🌙" : "☀️"}
-          </button>
-        )} */}
+      {/* Right side: Theme Toggle & Auth */}
+      <div className="flex items-center ml-12  space-x-4 ">
+        {/* Dark mode toggle */}
+        <button
+          onClick={toggleTheme}
+          className="btn btn-circle btn-ghost   hidden md:grid"
+          aria-label="Toggle Theme"
+        >
+          {theme === "dark" ? <MdOutlineLightMode size={20} /> : <MdOutlineDarkMode size={20} />}
+        </button>
 
-        {/* Auth Buttons */}
-        {/* {!user ? ( */}
-        <>
-          <NavLink
-            to="/login"
-            className="btn btn-outline btn-sm"
-            onClick={() => setMenuOpen(false)}
-          >
-            Login
-          </NavLink>
-          <NavLink
-            to="/register"
-            className="btn btn-outline btn-sm"
-            onClick={() => setMenuOpen(false)}
-          >
-            Register
-          </NavLink>
-        </>
-        {/* ) : (
+        {users ? (
           <>
-            <div className="tooltip tooltip-bottom" data-tip={user.displayName}>
+            <div className="tooltip tooltip-bottom" data-tip={users.displayName}>
               <img
-                src={user.photoURL || "/default-avatar.png"}
+                src={users.photoURL || "/default-avatar.png"}
                 alt="User"
-                className="w-8 h-8 rounded-full"
+                className="w-8 h-8 rounded-full object-cover"
               />
             </div>
-            <button
-              onClick={handleLogout}
-              className="btn btn-sm btn-error text-white"
-            >
+            <button onClick={handlesignout} className="btn btn-outline btn-sm">
               Logout
             </button>
           </>
-        )} */}
-      </div>
-
-      {/* Mobile Dropdown Menu */}
-      {menuOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 z-40" onClick={toggleMenu} />
-      )}
-      <div
-        className={`fixed top-0 left-0 h-full w-52 bg-base-100 shadow-lg p-4 space-y-4 z-50 transform ${
-          menuOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 lg:hidden`}
-      >
-        <ul className="flex flex-col space-y-3">{links}</ul>
-
-        {/* Mobile Auth Buttons */}
-        <div className="pt-6 border-t border-gray-300 dark:border-gray-600 flex flex-col space-y-2">
-          {/* {!user ? ( */}
+        ) : (
           <>
             <NavLink
               to="/login"
@@ -202,67 +173,68 @@ function Navbar() {
               Register
             </NavLink>
           </>
-          {/* ) : (
+        )}
+      </div>
+      </Fade>
+
+      {/* Mobile Overlay */}
+      {menuOpen && (
+        <div
+          className="fixed inset-0   bg-opacity-30 z-40"
+          onClick={toggleMenu}
+        />
+      )}
+
+      {/* Mobile Menu */}
+     
+      <div
+        className={`fixed top-0    left-0 h-full w-52 bg-base-100 shadow-lg p-4 space-y-4 z-50 transform ${
+          menuOpen ? "translate-x-0" : "-translate-x-full"
+        } transition-transform duration-300 lg:hidden dark:bg-gray-900`}
+      >
+        <ul className="flex  flex-col space-y-3">{links}</ul>
+
+        {/* Mobile Auth */}
+        <div className="pt-6 border-t  border-gray-300 dark:border-gray-600  flex flex-col space-y-2">
+          {users ? (
             <>
-              <div className="tooltip tooltip-bottom" data-tip={user.displayName}>
+              <div className="tooltip tooltip-bottom" data-tip={users.displayName}>
                 <img
-                  src={user.photoURL || "/default-avatar.png"}
+                  src={users.photoURL || "/default-avatar.png"}
                   alt="User"
                   className="w-8 h-8 rounded-full"
                 />
               </div>
               <button
-                onClick={handleLogout}
-                className="btn btn-sm btn-error text-white"
+                onClick={handlesignout}
+                className="btn btn-outline btn-sm"
               >
                 Logout
               </button>
             </>
-          )} */}
+          ) : (
+            <>
+              <NavLink
+                to="/login"
+                className="btn btn-outline btn-sm"
+                onClick={() => setMenuOpen(false)}
+              >
+                Login
+              </NavLink>
+              <NavLink
+                to="/register"
+                className="btn btn-outline btn-sm"
+                onClick={() => setMenuOpen(false)}
+              >
+                Register
+              </NavLink>
+            </>
+          )}
         </div>
       </div>
     </nav>
+ 
   );
 }
 
 export default Navbar;
-
-
-
-
-{/* <div className="navbar-end space-x-4">
-        {users ? (
-          <>
-            <div className="tooltip tooltip-bottom" data-tip={users.displayName}>
-              <Link to="/UserProfile">
-                <img
-                  src={users.photoURL}
-                  alt="User"
-                  className="w-10 h-10 rounded-full object-cover border-2 border-blue-500"
-                />
-              </Link>
-            </div>
-            <button
-              onClick={handlesignout}
-              className="btn btn-sm bg-[#176AE5] text-white hover:bg-blue-700 rounded-xl"
-            >
-              Logout
-            </button>
-          </>
-        ) : (
-          <div className='flex gap-2'>  
-           <NavLink
-          to="/Login"
-        >
-          <FaUserCircle size={30}/>
-        </NavLink>
-            <Link
-          to="/Login"
-          className="flex items-center gap-1 btn btn-sm bg-[#176AE5] text-white hover:bg-blue-700 rounded-xl"
-        >
-          
-          Login/Register
-        </Link></div>
-         
-        )}
-      </div> */}

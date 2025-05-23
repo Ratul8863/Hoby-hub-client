@@ -1,59 +1,90 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { FaTwitter, FaYoutube } from 'react-icons/fa';
+import { FaFacebook } from 'react-icons/fa6';
+import { Link, NavLink } from 'react-router-dom';
 
 function Footer() {
   return (
     <>
       {/* Top Section */}
-      <footer className="footer bg-base-200 text-base-content p-10 flex flex-wrap justify-between">
-        <div>
-          <h6 className="footer-title">Hobbies</h6>
-          <a className="link link-hover">Drawing</a>
-          <a className="link link-hover">Photography</a>
-          <a className="link link-hover">Gaming</a>
-          <a className="link link-hover">Cooking</a>
+      <footer className=" bg-gradient-to-br from-slate-100 to-slate-200  dark:shadow-blue-600 dark:from-gray-950 dark:to-gray-800 text-gray-800 dark:text-gray-200 px-10 py-12 grid grid-cols-2 md:justify-center md:grid-cols-3 gap-8">
+        <div className=' md:text-center'>
+          <h6 className="text-xl font-semibold mb-4">Hobbies</h6>
+          <ul className="space-y-2">
+            {["Drawing & Painting",
+    "Photography",
+    "Video Gaming",
+    "Fishing",
+    "Running",
+    "Cooking",
+    "Reading",
+    "Writing",].map((item, i) => (
+              <li key={i}>
+                <NavLink className="hover:underline hover:text-blue-600 dark:hover:text-blue-400  transition duration-200 cursor-pointer">
+                  {item}
+         </NavLink>
+              </li>
+            ))}
+          </ul>
         </div>
-        <div>
-          <h6 className="footer-title">Company</h6>
-          <a className="link link-hover">About Us</a>
-          <a className="link link-hover">Contact</a>
-          <a className="link link-hover">Support</a>
+
+        <div className='md:text-center'>
+          <h6 className="text-xl font-semibold mb-4">Company</h6>
+          <ul className="space-y-2">
+            {["About Us", "Contact", "Support"].map((item, i) => (
+              <li key={i}>
+                <a className="hover:underline hover:text-blue-600 dark:hover:text-blue-400 transition duration-200 cursor-pointer">
+                  {item}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
-        <div>
-          <h6 className="footer-title">Legal</h6>
-          <a className="link link-hover">Terms of Use</a>
-          <a className="link link-hover">Privacy Policy</a>
-          <a className="link link-hover">Cookie Policy</a>
+
+        <div className='md:text-center'>
+          <h6 className="text-xl font-semibold mb-4">Legal</h6>
+          <ul className="space-y-2">
+            {["Terms of Use", "Privacy Policy", "Cookie Policy"].map((item, i) => (
+              <li key={i}>
+                <a className="hover:underline hover:text-blue-600 dark:hover:text-blue-400 transition duration-200 cursor-pointer">
+                  {item}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </footer>
 
       {/* Bottom Section */}
-      <footer className="footer items-center justify-between bg-base-200 px-10 py-4 border-t text-base-content border-base-300 flex flex-col md:flex-row gap-4">
+      <footer className="flex  flex-col md:flex-row items-center justify-between bg-slate-300 dark:bg-gray-900 px-10 py-6 text-sm text-gray-700 dark:text-gray-300 border-t border-gray-400 dark:border-gray-600">
         {/* Branding */}
-        <Link to="/" className="flex items-center gap-3">
-          <img src="https://i.ibb.co/xQr2zTk/icons8-app-100.png" alt="Logo" className="w-10 h-10" />
+        <Link onClick={()=>window.scrollTo(0,0)} to="/" className="flex items-center gap-3 mb-4 md:mb-0">
+          <img src="https://i.ibb.co/39WLdycb/image.png" alt="Logo" className="w-10 h-10" />
           <div>
-            <p className="text-lg font-bold">HobbyHub</p>
+            <p className="text-lg font-bold text-black dark:text-white">HobbyHub</p>
             <p className="text-sm">Connecting hobbyists since 2025</p>
           </div>
         </Link>
 
         {/* Social Links */}
-        <div className="grid grid-flow-col gap-4">
-          <a href="https://twitter.com" target="_blank" rel="noreferrer">
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 fill-current hover:text-blue-500" viewBox="0 0 24 24">
-              <path d="M24 4.557a9.83 9.83 0 01-2.828.775 4.932..." />
-            </svg>
+        <div className="flex gap-5">
+          {/* Twitter */}
+          <a href="https://twitter.com" className='className="w-6  h-8 hover:text-blue-900 text-blue-500 dark:hover:text-blue-400 transition"' target="_blank" rel="noreferrer">
+           
+             <FaTwitter size={30}></FaTwitter>
+            
           </a>
-          <a href="https://www.youtube.com" target="_blank" rel="noreferrer">
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 fill-current hover:text-red-600" viewBox="0 0 24 24">
-              <path d="M19.615 3.184c-3.604-.246-11.631..." />
-            </svg>
+          {/* YouTube */}
+          <a href="https://www.youtube.com" className="w-6 h-6  hover:text-red-800  text-red-600 dark:hover:text-red-400 transition" target="_blank" rel="noreferrer">
+          
+              <FaYoutube size={30}></FaYoutube>
+           
           </a>
-          <a href="https://www.facebook.com" target="_blank" rel="noreferrer">
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 fill-current hover:text-blue-700" viewBox="0 0 24 24">
-              <path d="M9 8h-3v4h3v12h5v-12h3.642..." />
-            </svg>
+          {/* Facebook */}
+          <a href="https://www.facebook.com" className="w-full   hover:text-blue-700 dark:hover:text-blue-500 transition" target="_blank" rel="noreferrer">
+          
+            <FaFacebook size={30}></FaFacebook>
+          
           </a>
         </div>
       </footer>
