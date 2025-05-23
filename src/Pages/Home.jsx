@@ -53,7 +53,9 @@ function Home() {
           />
         </span>
       </h1>
-     
+      <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
+        Discover local hobby groups and build meaningful connections.
+      </p>
     </div>
 
 
