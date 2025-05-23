@@ -1,12 +1,40 @@
-# React + Vite
+# 🎯 HobbyHub: A Local Hobby Group Organizer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Live Site:** [https://your-live-site-url.com](https://your-live-site-url.com)
 
-Currently, two official plugins are available:
+HobbyHub is a web application where users can discover, join, and create local hobby-based groups such as book clubs, hiking teams, and painting circles. It promotes social interaction through shared interests and helps people form real-world connections.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🔐 Authentication (Email/Password + Google Login)
+- 📆 Create and Manage Hobby Groups
+- 👥 Join and View Group Details
+- 🗂️ Filter My Groups (Only Your Created Ones)
+- 🌓 Dark/Light Theme Toggle
+- 🧩 Smooth Animations with Lottie and Awesome Reveal
+- 🛡️ Protected Routes for Private Pages
+- 📱 Responsive Design for Mobile, Tablet & Desktop
+
+---
+
+## 🛠️ Tech Stack
+
+**Client:**
+
+- React.js (Vite)
+- React Router DOM
+- Firebase Auth
+- Tailwind CSS + DaisyUI
+- Lottie React / React Awesome Reveal / React Tooltip
+- SweetAlert2 for notifications
+
+**Server:**
+
+- Express.js
+- MongoDB Atlas
+- CORS & dotenv
+
+---
+
