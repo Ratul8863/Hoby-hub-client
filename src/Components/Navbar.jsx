@@ -79,12 +79,12 @@ function Navbar() {
 
   return (
    
-     <nav className="bg-gradient-to-br navbar bg-base-100 shadow-md dark:shadow-blue-600  dark:from-gray-950 dark:to-gray-800  mb-4 px-4 py-5 dark:bg-gray-900 dark:text-white">
+     <nav className="bg-gradient-to-br navbar bg-base-100 shadow-md border justify-between border-amber-400 dark:shadow-blue-600  dark:from-gray-950 dark:to-gray-800  mb-4 px-4 py-5 dark:bg-gray-900 dark:text-white">
       {/* Left side */}
       <Fade   direction='down' triggerOnce={true}>
-         <div className="flex items-center justify-start space-x-2">
+         <div className="flex items-center  justify-start ml-[-20px]">
         <button
-          className="btn btn-ghost lg:hidden"
+          className="btn btn-ghost md:hidden"
           onClick={toggleMenu}
           aria-label="Toggle Menu"
         >
@@ -188,14 +188,14 @@ function Navbar() {
       {/* Mobile Menu */}
      
       <div
-        className={`fixed top-0    left-0 h-full w-52 bg-base-100 shadow-lg p-4 space-y-4 z-50 transform ${
+        className={`fixed top-0 border   left-0 h-full w-52 bg-base-100 shadow-lg p-4 space-y-4 z-50 transform ${
           menuOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 lg:hidden dark:bg-gray-900`}
       >
-        <ul className="flex  flex-col space-y-3">{links}</ul>
+        <ul className="flex border flex-col space-y-3">{links}</ul>
 
         {/* Mobile Auth */}
-        <div className="pt-6 border-t  border-gray-300 dark:border-gray-600  flex flex-col space-y-2">
+        <div className="pt-6 border-t border border-gray-300 dark:border-gray-600  flex flex-col  space-y-2">
           {users ? (
             <>
               <div className="tooltip tooltip-bottom" data-tip={users.displayName}>
