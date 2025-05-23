@@ -133,7 +133,7 @@ function Navbar() {
       </div>
 
       {/* Right side: Theme Toggle & Auth */}
-      <div className="flex items-center ml-12  space-x-4 ">
+      <div className="flex items-center ml-12  space-x-2 ">
         {/* Dark mode toggle */}
         <button
           onClick={toggleTheme}
@@ -160,14 +160,14 @@ function Navbar() {
           <>
             <NavLink
               to="/login"
-              className="btn btn-outline btn-sm"
+              className="btn btn-outline btn-secondary btn-sm"
               onClick={() => setMenuOpen(false)}
             >
               Login
             </NavLink>
             <NavLink
               to="/register"
-              className="btn btn-outline btn-sm"
+              className="btn btn-outline btn-error btn-sm"
               onClick={() => setMenuOpen(false)}
             >
               Register
@@ -188,14 +188,14 @@ function Navbar() {
       {/* Mobile Menu */}
      
       <div
-        className={`fixed top-0 border   left-0 h-full w-52 bg-base-100 shadow-lg p-4 space-y-4 z-50 transform ${
+        className={`fixed top-0     left-0 h-full w-52 bg-base-100 shadow-lg p-4 space-y-4 z-50 transform ${
           menuOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 lg:hidden dark:bg-gray-900`}
       >
-        <ul className="flex border flex-col space-y-3">{links}</ul>
+        <ul className="flex  flex-col space-y-3">{links}</ul>
 
         {/* Mobile Auth */}
-        <div className="pt-6 border-t border border-gray-300 dark:border-gray-600  flex flex-col  space-y-2">
+        <div className="pt-6 border-t  border-gray-300 dark:border-gray-600  flex flex-col  space-y-2">
           {users ? (
             <>
               <div className="tooltip tooltip-bottom" data-tip={users.displayName}>
@@ -216,14 +216,14 @@ function Navbar() {
             <>
               <NavLink
                 to="/login"
-                className="btn btn-outline btn-sm"
+                className="btn btn-outline btn-secondary btn-sm"
                 onClick={() => setMenuOpen(false)}
               >
                 Login
               </NavLink>
               <NavLink
                 to="/register"
-                className="btn btn-outline btn-sm"
+                className="btn btn-outline btn-error btn-sm"
                 onClick={() => setMenuOpen(false)}
               >
                 Register
