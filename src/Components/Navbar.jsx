@@ -79,7 +79,7 @@ function Navbar() {
 
   return (
    
-     <nav className="bg-gradient-to-br navbar bg-base-100 shadow-md border justify-between border-amber-400 dark:shadow-blue-600  dark:from-gray-950 dark:to-gray-800  mb-4 px-4 py-5 dark:bg-gray-900 dark:text-white">
+     <nav className="bg-gradient-to-br navbar bg-base-100 shadow-md  justify-between shadow-blue-200 dark:shadow-blue-600  dark:from-gray-950 dark:to-gray-800  mb-4 px-4 py-5 dark:bg-gray-900 dark:text-white">
       {/* Left side */}
       <Fade   direction='down' triggerOnce={true}>
          <div className="flex items-center  justify-start ml-[-20px]">
