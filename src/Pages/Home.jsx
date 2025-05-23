@@ -98,7 +98,7 @@ function Home() {
         {groups.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             {groups.map(group => (
-              <Link key={group._id} to={`/groupdetails/${group._id}`}>
+              <Link key={group._id} onClick={()=> window.scrollTo(0,0)} to={`/groupdetails/${group._id}`}>
                 <div className="rounded-lg dark:bg-gray-800 bg-base-200 hover:shadow-xl overflow-hidden shadow-sm  animate-moving-shadow cursor-pointer transition-shadow">
                   <img src={group.imageUrl || "https://via.placeholder.com/400"} alt={group.groupName} className="w-full h-48 object-cover" />
                   <div className="p-4 space-y-1">
