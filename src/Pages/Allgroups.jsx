@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Fade } from "react-awesome-reveal";
+import { Helmet } from 'react-helmet-async';
 
 function Allgroups() {
   const [groups, setGroups] = useState([]);
@@ -12,6 +13,10 @@ function Allgroups() {
   }, []);
 
   return (
+  <>
+    <Helmet>
+          <title>Hobby-Hub | Allgroups</title>
+         </Helmet>
     <Fade  direction='bottom-left' triggerOnce={true}>
        <div className="min-h-screen px-4 py-10  dark:bg-gray-900 dark:text-white">
       <h2 className="text-3xl font-bold text-center mb-8">All Hobby Groups</h2>
@@ -36,6 +41,7 @@ function Allgroups() {
      
     </div>
     </Fade>
+  </>
    
   );
 }

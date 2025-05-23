@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useLoaderData } from 'react-router';
 
 const Groupdetail = () => {
@@ -9,6 +10,9 @@ const Groupdetail = () => {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-12 text-gray-900 dark:text-white">
+        <Helmet>
+              <title>Hobby-Hub | Groupdetails</title>
+             </Helmet>
       <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg  overflow-hidden border border-gray-200 dark:border-gray-700 animate-moving-shadow4 dark:animate-moving-shadow2 ">
         <img src={imageUrl} alt="Group Banner" className="w-full h-64 object-cover" />
 

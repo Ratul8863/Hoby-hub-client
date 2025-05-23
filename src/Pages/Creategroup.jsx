@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { toast } from 'react-toastify';
 import { Valuecontext } from '../Root/Root';
 import { Navigate, useNavigate } from 'react-router';
+import { Helmet } from 'react-helmet-async';
 
 function Creategroup() {
   const { users } = useContext(Valuecontext);
@@ -53,6 +54,9 @@ function Creategroup() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10 ">
+      <Helmet>
+        <title>Hobby-Hub | Creategroup</title>
+       </Helmet>
       <h2 className="text-3xl font-bold text-center mb-8">Create a New Hobby Group</h2>
      <form
   onSubmit={handleSubmit}

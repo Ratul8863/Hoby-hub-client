@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Swal from 'sweetalert2';
 import { Valuecontext } from '../Root/Root';
+import { Helmet } from 'react-helmet-async';
 
 function UpdateGroupModal({ group, isOpen, onClose, onUpdate }) {
   const { users } = useContext(Valuecontext);
@@ -74,6 +75,9 @@ function UpdateGroupModal({ group, isOpen, onClose, onUpdate }) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
+        <Helmet>
+              <title>Hobby-Hub | Creategroup</title>
+             </Helmet>
       <div className="bg-white text-black  rounded-lg p-6 w-full max-w-lg relative shadow-lg transition-all duration-300">
         
         {/* Close Button */}

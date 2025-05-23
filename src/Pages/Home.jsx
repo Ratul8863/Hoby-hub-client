@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom"; // use 'react-router-dom'
 import { Fade } from "react-awesome-reveal";
 import { Typewriter } from 'react-simple-typewriter'
+import { Helmet } from "react-helmet-async";
 
 function Home() {
   const [groups, setGroups] = useState([]);
@@ -36,7 +37,9 @@ function Home() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-12  space-y-20">
-      
+       <Helmet>
+             <title>Hobby-Hub | Home</title>
+            </Helmet>
 
  <div className="text-center md:mt-12 px-4">
       <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white">

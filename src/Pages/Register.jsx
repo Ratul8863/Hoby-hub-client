@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import { Valuecontext } from '../Root/Root';
 import { toast } from 'react-toastify';
 import { FaGoogle } from 'react-icons/fa';
+import { Helmet } from 'react-helmet-async';
 
 function Register() {
   const navigate = useNavigate();
@@ -93,6 +94,9 @@ toast.success("Successfully Registered");
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 dark:bg-gray-950 dark:border-gray-600 dark:text-white">
+        <Helmet>
+              <title>Hobby-Hub | Register</title>
+             </Helmet>
       <form onSubmit={handlesubmit} className="card bg-base-100 w-full max-w-sm mx-auto shrink-0 shadow-2xl mb-10 mt-10">
         <div className="card-body">
           <h1 className="text-center text-xl py-2 font-bold text-[#403F3F]">Register your account</h1>

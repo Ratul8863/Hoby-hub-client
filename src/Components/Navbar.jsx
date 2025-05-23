@@ -115,7 +115,7 @@ function Navbar() {
 
         <NavLink
           to="/"
-          className="btn btn-ghost    font-bold text-xl flex items-center gap-2"
+          className="btn btn-outline border-0 hover:bg-blue-950 hover:text-white    font-bold text-xl flex items-center gap-2"
           onClick={() => setMenuOpen(false)}
         >
           <img

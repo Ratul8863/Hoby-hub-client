@@ -3,6 +3,7 @@ import UpdateGroupModal from '../Components/UpdateGroupModal';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { Valuecontext } from '../Root/Root';
+import { Helmet } from 'react-helmet-async';
 
 function Mygroups() {
   const { users } = useContext(Valuecontext);
@@ -73,6 +74,9 @@ function Mygroups() {
 
   return (
     <div className="p-4 bg-white dark:bg-gray-900 min-h-screen text-black dark:text-white">
+        <Helmet>
+              <title>Hobby-Hub | Mygroups</title>
+             </Helmet>
       <h1 className="text-xl md:text-2xl font-bold mb-4 text-center">My Groups</h1>
 
       <div className="overflow-x-auto rounded-lg border dark:border-gray-700">
