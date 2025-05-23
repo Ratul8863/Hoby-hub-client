@@ -4,6 +4,7 @@ import { Outlet } from 'react-router'
 import Footer from '../Components/Footer.jsX'
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { auth } from '../Firebase/Firebase.config';
+import Swal from 'sweetalert2';
 
 export const Valuecontext = createContext();
 
@@ -14,17 +15,38 @@ function Root() {
 const handlelogin = (email, password) => signInWithEmailAndPassword(auth, email, password);
   const handlesignup = (email, password) => createUserWithEmailAndPassword(auth, email, password);
 
-   const handlesignout = () => {
-    const auth = getAuth();
-    signOut(auth)
-      .then(() => {
-        alert("Sign Out Successful");
-        // navigate('/Login');
-      })
-      .catch((error) => {
-        // console.log(error);
-      });
-  };
+  const handlesignout = () => {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to join or create groups!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Yes, Logout!',
+    cancelButtonText: 'Cancel',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      signOut(auth)
+      
+          Swal.fire('Signed Out!', 'You have been logged out.', 'success');
+        }
+        })
+        .catch((error) => {
+          const errorMessage = error?.message || 'Something went wrong!';
+          Swal.fire({
+            icon: 'error',
+            title: 'Sign Out Failed',
+            text: errorMessage,
+          });
+        });
+    
+    // ✅ Do nothing if Cancel is clicked
+  
+};
+
+
+
 
    useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
