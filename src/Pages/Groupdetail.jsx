@@ -44,7 +44,7 @@ const Groupdetail = () => {
             {groupHasStarted ? (
               <p className="text-red-500 font-medium text-2xl">This group is no longer active.</p>
             ) : (
-              <button className="btn btn-primary w-full md:w-auto">Join This Group</button>
+              <button className="btn btn-success w-full md:w-auto">Join This Group</button>
             )}
           </div>
         </div>
