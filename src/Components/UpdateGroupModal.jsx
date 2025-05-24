@@ -43,7 +43,7 @@ function UpdateGroupModal({ group, isOpen, onClose, onUpdate }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch(`http://localhost:4500/groups/${group._id}`, {
+    fetch(`https://hobyhub-server.vercel.app/groups/${group._id}`, {
       method: 'PUT',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...formData, name: formData.groupName }),

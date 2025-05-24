@@ -28,7 +28,7 @@ const Groupdetail = () => {
                 <span className="font-semibold">Meeting Location:</span> {location}
               </p>
               <p>
-                <span className="font-semibold">Start Date:</span> {new Date(startDate).toLocaleDateString()}
+                <span className="font-semibold">Start Date (deadline equivalent):</span> {new Date(startDate).toLocaleDateString()}
               </p>
               <p>
                 <span className="font-semibold">Max Members:</span> {maxMembers}

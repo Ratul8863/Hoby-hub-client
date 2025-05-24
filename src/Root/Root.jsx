@@ -10,7 +10,7 @@ export const Valuecontext = createContext();
 
 function Root() {
  const [users, setusers] = useState(null);
- console.log(users);
+//  console.log(users);
  const [looading, setLooading] = useState(true);
 const handlelogin = (email, password) => signInWithEmailAndPassword(auth, email, password);
   const handlesignup = (email, password) => createUserWithEmailAndPassword(auth, email, password);

@@ -46,7 +46,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/myGroups",
-         loader : () => fetch('http://localhost:4500/groups'),
+         loader : () => fetch('https://hobyhub-server.vercel.app/groups'),
         element: <Privetroute>
           <Mygroups></Mygroups>
         </Privetroute>
@@ -59,12 +59,12 @@ export const router = createBrowserRouter([
       },
       {
         path: "/Updategroups/:id",
-          loader : ({params}) => fetch(`http://localhost:4500/groups/${params.id}`),
+          loader : ({params}) => fetch(`https://hobyhub-server.vercel.app/groups/${params.id}`),
         element: <Updategroup></Updategroup>
       },
         {
         path: "/groupdetails/:id",
-          loader : ({params}) => fetch(`http://localhost:4500/groups/${params.id}`),
+          loader : ({params}) => fetch(`https://hobyhub-server.vercel.app/groups/${params.id}`),
         element: <Privetroute><Groupdetail></Groupdetail></Privetroute>
       },
       

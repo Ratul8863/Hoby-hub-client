@@ -14,10 +14,15 @@ function Mygroups() {
   const navigate = useNavigate();
 
   const fetchGroups = () => {
-    fetch('http://localhost:4500/groups')
+    fetch('https://hobyhub-server.vercel.app/groups')
       .then(res => res.json())
       .then(data => setGroups(data))
-      .catch(err => console.error(err));
+      .catch(err => 
+      {
+// console.error(err)
+      }
+        
+      );
   };
 
   useEffect(() => {
@@ -45,7 +50,7 @@ function Mygroups() {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:4500/groups/${groupId}`, {
+        fetch(`https://hobyhub-server.vercel.app/groups/${groupId}`, {
           method: 'DELETE',
         })
           .then(res => res.json())
@@ -126,7 +131,7 @@ function Mygroups() {
                     </button>
                     <button
                       onClick={() => handleDeleteClick(group._id)}
-                      className="btn btn-error btn-xs md:btn-sm"
+                      className="btn btn-outline btn-error btn-xs md:btn-sm "
                     >
                       Delete
                     </button>

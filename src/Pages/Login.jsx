@@ -21,7 +21,7 @@ function Login() {
         navigate(location.state || '/');
       })
       .catch((error) => {
-        console.error(error.message);
+        // console.error(error.message);
         toast.error('Invalid email or password.');
       });
   };
@@ -33,7 +33,7 @@ function Login() {
         navigate(location.state || '/');
       })
       .catch((error) => {
-        console.error(error.message);
+        // console.error(error.message);
         toast.error('Google login failed.');
       });
   };

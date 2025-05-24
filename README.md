@@ -1,6 +1,6 @@
 # 🎯 HobbyHub: A Local Hobby Group Organizer
 
-**Live Site:** [https://your-live-site-url.com](https://your-live-site-url.com)
+**Live Site:** [https://your-live-site-url.com]
 
 HobbyHub is a web application where users can discover, join, and create local hobby-based groups such as book clubs, hiking teams, and painting circles. It promotes social interaction through shared interests and helps people form real-world connections.
 

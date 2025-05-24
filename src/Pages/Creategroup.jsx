@@ -21,6 +21,7 @@ function Creategroup() {
     "Cooking",
     "Reading",
     "Writing",
+    "Others"
   ];
 
   const handleSubmit = (e) => {
@@ -32,7 +33,7 @@ function Creategroup() {
     inputdata.userName = users?.displayName || "Anonymous";
     inputdata.userEmail = users?.email;
 
-    fetch('http://localhost:4500/groups', {
+    fetch('https://hobyhub-server.vercel.app/groups', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(inputdata),
@@ -47,7 +48,7 @@ function Creategroup() {
         }
       })
       .catch(error => {
-        console.error(error);
+        // console.error(error);
         toast.error("An error occurred while creating the group.");
       });
   };

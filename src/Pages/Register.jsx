@@ -58,7 +58,7 @@ toast.success("Successfully Registered");
           ...restformdata,
         };
 
-        fetch('http://localhost:4500/users', {
+        fetch('https://hobyhub-server.vercel.app/users', {
           method: 'POST',
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(userprofile),
@@ -76,7 +76,7 @@ toast.success("Successfully Registered");
         navigate(location.state ? location.state : "/");
       })
       .catch(error => {
-        console.error(error);
+        // console.error(error);
         toast.error("User allready exsit. Please login");
       });
   };

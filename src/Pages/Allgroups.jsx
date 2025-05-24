@@ -7,7 +7,7 @@ function Allgroups() {
   const [groups, setGroups] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:4500/groups')
+    fetch('https://hobyhub-server.vercel.app/groups')
       .then(res => res.json())
       .then(data => setGroups(data));
   }, []);
