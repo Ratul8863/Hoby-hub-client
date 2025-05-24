@@ -115,11 +115,11 @@ function Navbar() {
 
         <NavLink
           to="/"
-          className="btn btn-outline border-0 hover:bg-blue-950 hover:text-white    font-bold text-xl flex items-center gap-2"
+          className=" border-0  hover:text-white    font-bold text-xl flex items-center gap-2"
           onClick={() => setMenuOpen(false)}
         >
           <img
-            className="w-8 h-8 ml-[-20Px] md:ml-0"
+            className="w-8 h-8 ml-[-10Px] md:ml-5"
             src="https://i.ibb.co/39WLdycb/image.png"
             alt="HobbyHub Logo"
           />
