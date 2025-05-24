@@ -19,10 +19,10 @@ function Footer() {
     "Cooking",
     "Reading",
     "Writing",].map((item, i) => (
-              <li key={i}>
-                <NavLink className="hover:underline hover:text-blue-600 dark:hover:text-blue-400  transition duration-200 cursor-pointer">
+              <li key={i} className="hover:underline hover:text-blue-600 dark:hover:text-blue-400  transition duration-200 cursor-pointer">
+            
                   {item}
-         </NavLink>
+   
               </li>
             ))}
           </ul>
