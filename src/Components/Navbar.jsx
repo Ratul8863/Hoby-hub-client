@@ -180,7 +180,7 @@ function Navbar() {
       {/* Mobile Overlay */}
       {menuOpen && (
         <div
-          className="fixed inset-0   bg-opacity-30 z-40"
+          className="fixed inset-0 backdrop-blur  bg-opacity-30 z-40"
           onClick={toggleMenu}
         />
       )}
