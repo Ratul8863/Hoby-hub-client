@@ -19,9 +19,11 @@ function Footer() {
     "Cooking",
     "Reading",
     "Writing",].map((item, i) => (
-              <li key={i} className="hover:underline hover:text-blue-600 dark:hover:text-blue-400  transition duration-200 cursor-pointer">
-            
-                  {item}
+              <li key={i} >
+            <a className="hover:underline hover:text-blue-600 dark:hover:text-blue-400  transition duration-200 cursor-pointer" >
+{item}
+            </a>
+                  
    
               </li>
             ))}
