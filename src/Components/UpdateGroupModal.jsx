@@ -105,7 +105,7 @@ function UpdateGroupModal({ group, isOpen, onClose, onUpdate }) {
               required
               placeholder="Group Name"
               className="input input-bordered w-full"
-              readOnly
+             
             />
           </div>
 
