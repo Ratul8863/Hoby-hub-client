@@ -144,12 +144,15 @@ function Mygroups() {
       </div>
 
       {/* Update Group Modal */}
-      <UpdateGroupModal
+      <div className=''>
+<UpdateGroupModal 
         group={selectedGroup}
         isOpen={isModalOpen}
         onClose={handleModalClose}
         onUpdate={fetchGroups}
       />
+      </div>
+      
     </div>
   );
 }

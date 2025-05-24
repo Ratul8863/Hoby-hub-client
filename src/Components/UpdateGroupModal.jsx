@@ -8,7 +8,7 @@ function UpdateGroupModal({ group, isOpen, onClose, onUpdate }) {
 
   const categories = [
     "Drawing & Painting", "Photography", "Video Gaming",
-    "Fishing", "Running", "Cooking", "Reading", "Writing"
+    "Fishing", "Running", "Cooking", "Reading", "Writing","Others"
   ];
 
   const [formData, setFormData] = useState({
@@ -20,11 +20,11 @@ function UpdateGroupModal({ group, isOpen, onClose, onUpdate }) {
     startDate: '',
     imageUrl: '',
   });
-
+console.log(group)
   useEffect(() => {
     if (group) {
       setFormData({
-        groupName: group.name || '',
+        groupName: group.groupName || '',
         category: group.category || '',
         description: group.description || '',
         location: group.location || '',
@@ -74,120 +74,137 @@ function UpdateGroupModal({ group, isOpen, onClose, onUpdate }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
-        <Helmet>
-              <title>Hobby-Hub | Creategroup</title>
-             </Helmet>
-      <div className="bg-white text-black  rounded-lg p-6 w-full max-w-lg relative shadow-lg transition-all duration-300">
-        
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-2 right-4 text-black text-2xl font-bold hover:text-red-400"
-        >
-          &times;
-        </button>
+  <div className="fixed inset-0 z-50  flex justify-center items-center  bg-opacity-60 backdrop-brightness-50 px-2">
+    <Helmet>
+      <title>Hobby-Hub | Update Group</title>
+    </Helmet>
 
-        <h2 className="text-2xl font-bold mb-6">Update Group</h2>
+    {/* Scrollable container for modal */}
+    <div className="overflow-y-auto max-h-screen w-full max-w-lg p-4 sm:p-6 bg-white text-black rounded-lg shadow-lg relative">
+      
+      {/* Close Button */}
+      <button
+        onClick={onClose}
+        className="absolute top-2 right-4 text-black text-2xl font-bold hover:text-red-400"
+      >
+        &times;
+      </button>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+      <h2 className="text-2xl font-bold mb-6 text-center">Update Group</h2>
 
-          <input
-            type="text"
-            name="groupName"
-            value={formData.groupName}
-            onChange={handleChange}
-            required
-            placeholder="Group Name"
-            className="input input-bordered w-full"
-            readOnly
-          />
+    <form onSubmit={handleSubmit} className="space-y-4">
+  <label htmlFor="groupName" className="font-medium">Group Name</label>
+  <input
+    id="groupName"
+    type="text"
+    name="groupName"
+    value={formData.groupName}
+    onChange={handleChange}
+    required
+    placeholder="Group Name"
+    className="input input-bordered w-full"
+    readOnly
+  />
 
-          <select
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-            required
-            className="select select-bordered w-full"
-          >
-            <option value="">Select Hobby Category</option>
-            {categories.map((cat, idx) => (
-              <option key={idx} value={cat}>{cat}</option>
-            ))}
-          </select>
+  <label htmlFor="category" className="font-medium">Select Hobby Category</label>
+  <select
+    id="category"
+    name="category"
+    value={formData.category}
+    onChange={handleChange}
+    required
+    className="select select-bordered w-full"
+  >
+    <option value="">Select Hobby Category</option>
+    {categories.map((cat, idx) => (
+      <option key={idx} value={cat}>{cat}</option>
+    ))}
+  </select>
 
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            required
-            placeholder="Group Description"
-            className="textarea textarea-bordered w-full"
-          />
+  <label htmlFor="description" className="font-medium">Group Description</label>
+  <textarea
+    id="description"
+    name="description"
+    value={formData.description}
+    onChange={handleChange}
+    required
+    placeholder="Group Description"
+    className="textarea textarea-bordered w-full"
+  />
 
-          <input
-            type="text"
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            required
-            placeholder="Meeting Location"
-            className="input input-bordered w-full"
-          />
+  <label htmlFor="location" className="font-medium">Meeting Location (online/offline)</label>
+  <input
+    id="location"
+    type="text"
+    name="location"
+    value={formData.location}
+    onChange={handleChange}
+    required
+    placeholder="Meeting Location"
+    className="input input-bordered w-full"
+  />
 
-          <input
-            type="number"
-            name="maxMembers"
-            value={formData.maxMembers}
-            onChange={handleChange}
-            required
-            placeholder="Max Members"
-            className="input input-bordered w-full"
-          />
+  <label htmlFor="maxMembers" className="font-medium">Max Members</label>
+  <input
+    id="maxMembers"
+    type="number"
+    name="maxMembers"
+    value={formData.maxMembers}
+    onChange={handleChange}
+    required
+    placeholder="Max Members"
+    className="input input-bordered w-full"
+  />
 
-          <input
-            type="date"
-            name="startDate"
-            value={formData.startDate}
-            onChange={handleChange}
-            required
-            className="input input-bordered w-full"
-          />
+  <label htmlFor="startDate" className="font-medium">Start Date</label>
+  <input
+    id="startDate"
+    type="date"
+    name="startDate"
+    value={formData.startDate}
+    onChange={handleChange}
+    required
+    className="input input-bordered w-full"
+  />
 
-          <input
-            type="text"
-            name="imageUrl"
-            value={formData.imageUrl}
-            onChange={handleChange}
-            required
-            placeholder="Image URL"
-            className="input input-bordered w-full"
-          />
+  <label htmlFor="imageUrl" className="font-medium">Image URL</label>
+  <input
+    id="imageUrl"
+    type="text"
+    name="imageUrl"
+    value={formData.imageUrl}
+    onChange={handleChange}
+    required
+    placeholder="Image URL"
+    className="input input-bordered w-full"
+  />
 
-          <div className="grid md:grid-cols-2 gap-4">
-            <input
-              type="text"
-              value={users?.displayName || ''}
-              readOnly
-              className="input input-bordered w-full"
-              placeholder="Your Name"
-            />
-            <input
-              type="email"
-              value={users?.email || ''}
-              readOnly
-              className="input input-bordered w-full"
-              placeholder="Your Email"
-            />
-          </div>
+  <div className="grid md:grid-cols-2 gap-4">
+    <input
+      type="text"
+      value={users?.displayName || ''}
+      readOnly
+      className="input input-bordered w-full"
+      placeholder="Your Name"
+    />
+    <input
+      type="email"
+      value={users?.email || ''}
+      readOnly
+      className="input input-bordered w-full"
+      placeholder="Your Email"
+    />
+  </div>
 
-          <button type="submit" className="btn btn-secondary w-full">
-            Update Group
-          </button>
-        </form>
-      </div>
+  <button type="submit" className="btn btn-secondary w-full">
+    Update Group
+  </button>
+</form>
+
     </div>
-  );
+  </div>
+);
+
 }
 
 export default UpdateGroupModal;
