@@ -11,6 +11,9 @@ import Creategroup from "../Pages/Creategroup";
 import Groupdetail from "../Pages/Groupdetail";
 import Updategroup from "../Pages/Updategroup";
 import Privetroute from "../Components/Privetroute";
+import About from "../Pages/About/Contact/About";
+import Contact from "../Pages/About/Contact/Contact";
+import Support from "../Pages/About/Contact/Support";
 
 
 
@@ -66,6 +69,20 @@ export const router = createBrowserRouter([
         path: "/groupdetails/:id",
           loader : ({params}) => fetch(`https://hobyhub-server.vercel.app/groups/${params.id}`),
         element: <Privetroute><Groupdetail></Groupdetail></Privetroute>
+      },
+
+      {
+        path : "/about",
+         element: <About />
+      },
+      {
+        path : "/contact",
+         element: <Contact />
+      },
+
+      {
+        path : "/support",
+         element: <Support />
       },
       
     ]

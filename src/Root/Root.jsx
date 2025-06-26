@@ -96,7 +96,7 @@ const handlevalues = {
 
 
   return (
-  <div className=' dark:bg-gray-900 dark:text-white'>
+  <div className={` dark:bg-gray-900 dark:text-white ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-[#F8F8F8] text-black'}`}>
  <Valuecontext.Provider value={handlevalues} >
 
          <div className='max-w-[1400px] mx-auto '>
