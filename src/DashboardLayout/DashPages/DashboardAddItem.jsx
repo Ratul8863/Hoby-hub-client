@@ -1,201 +1,160 @@
-import React, { useContext } from "react";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
-import { Valuecontext } from "../../Root/Root";
+import React, { useContext, useState } from 'react';
+import { toast } from 'react-toastify';
 
-function DashboardAddItem() {
+import { Navigate, useNavigate } from 'react-router';
+import { Helmet } from 'react-helmet-async';
+import { Valuecontext } from '../../Root/Root';
+
+function Creategroup() {
   const { users } = useContext(Valuecontext);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  if (!users || !users.email) {
+    return <Navigate to="/login" />;
+  }
 
   const categories = [
-    "Drawing & Painting",
-    "Photography",
-    "Video Gaming",
-    "Fishing",
-    "Running",
-    "Cooking",
-    "Reading",
-    "Writing",
-    "Others",
+    "Drawing & Painting", "Photography", "Video Gaming", "Fishing",
+    "Running", "Cooking", "Reading", "Writing", "Others"
   ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const form = new FormData(e.target);
-    const group = Object.fromEntries(form.entries());
+    setLoading(true);
 
-    group.userName = users?.displayName;
-    group.userEmail = users?.email;
+    const formdata = new FormData(e.target);
+    const inputdata = Object.fromEntries(formdata.entries());
 
-    // Add current date for startDate if not provided (optional, but good for data integrity)
-    if (!group.startDate) {
-        group.startDate = new Date().toISOString().split('T')[0]; // Format YYYY-MM-DD
-    }
+    inputdata.userName = users?.displayName || "Anonymous";
+    inputdata.userEmail = users?.email;
 
-    fetch("https://hobyhub-server.vercel.app/groups", {
-      method: "POST",
+    fetch('https://hobyhub-server.vercel.app/groups', {
+      method: 'POST',
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(group),
+      body: JSON.stringify(inputdata),
     })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.insertedId || data._id) { // Check for both insertedId (MongoDB) or _id (if already processed/mocked)
-          toast.success("Group added successfully!");
-          e.target.reset(); // Clear the form after successful submission
-          navigate("/dashboard/my-items");
+      .then(res => res.json())
+      .then(data => {
+        if (data.insertedId || data._id) {
+          toast.success("Group created successfully!");
+          navigate("/Allgroups");
         } else {
-          toast.error("Failed to add group.");
+          toast.error("Failed to create group");
         }
       })
-      .catch((error) => { // Catch network or other errors
-          console.error("Error adding group:", error);
-          toast.error("Server error. Try again later.");
+      .catch(() => {
+        toast.error("An error occurred while creating the group.");
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
-  const inputStyle = "w-full p-3 rounded-lg bg-[#1A1A2E] border border-gray-700 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#7B68EE]";
-  const readOnlyInputStyle = "w-full p-3 rounded-lg bg-[#1A1A2E] border border-gray-700 text-gray-400 placeholder-gray-500 focus:outline-none cursor-not-allowed";
-
-
   return (
-    // Main container styling matching DashboardLayout
-    <div className="max-w-4xl mx-auto px-6 py-10 bg-[#1A1A2E] text-gray-200 min-h-screen">
+    <div className="max-w-4xl mx-auto px-4 py-12 min-h-screen bg-[#F5F5F5] dark:bg-gray-900 transition-colors duration-300">
       <Helmet>
-        <title>Dashboard | Add Group</title>
+        <title>HobbyHub | Create Group</title>
       </Helmet>
 
-      {/* Page Title - Consistent with Storeshop dashboard headers */}
-      <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-100">Add a New Group</h2>
+      <div className="text-center mb-10">
+        <h2 className="text-4xl font-bold text-gray-800 dark:text-white">Create a New Hobby Group</h2>
+        <p className="text-gray-600 dark:text-gray-400 mt-2">Build your own community around your favorite hobby!</p>
+      </div>
 
-      {/* Form Container - Styled like a Storeshop card */}
       <form
         onSubmit={handleSubmit}
-        className="bg-[#2C2C4A] p-6 md:p-8 rounded-xl shadow-xl border border-gray-800 space-y-6" // Increased padding and spacing
+        className="bg-white dark:bg-gray-800 dark:text-white rounded-lg shadow-xl p-8 space-y-5 "
       >
-        <div>
-            <label htmlFor="groupName" className="block text-sm font-medium text-gray-400 mb-2">Group Name</label>
-            <input
-                type="text"
-                name="groupName"
-                id="groupName"
-                required
-                placeholder="Enter group name"
-                className={inputStyle}
-            />
-        </div>
+        <input
+          type="text"
+          name="groupName"
+          required
+          placeholder="Group Name"
+          className="input input-bordered w-full dark:bg-gray-700 dark:border-gray-600"
+        />
 
         <div>
-            <label htmlFor="category" className="block text-sm font-medium text-gray-400 mb-2">Category</label>
-            <select
-                name="category"
-                id="category"
-                required
-                className={inputStyle}
-            >
-                <option value="" disabled>Select Category</option> {/* Empty value for initial selection */}
-                {categories.map((cat, i) => (
-                    <option key={i} value={cat}>
-                        {cat}
-                    </option>
-                ))}
-            </select>
+          <label className="block mb-1 font-medium">Select Hobby Category</label>
+          <select
+            name="category"
+            required
+            className="select select-bordered w-full dark:bg-gray-700 dark:border-gray-600"
+          >
+            {categories.map((cat, idx) => (
+              <option key={idx} value={cat}>{cat}</option>
+            ))}
+          </select>
         </div>
+
+        <textarea
+          name="description"
+          required
+          rows="4"
+          placeholder="Group Description"
+          className="textarea textarea-bordered w-full dark:bg-gray-700 dark:border-gray-600"
+        />
+
+        <input
+          type="text"
+          name="location"
+          required
+          placeholder="Meeting Location"
+          className="input input-bordered w-full dark:bg-gray-700 dark:border-gray-600"
+        />
+
+        <input
+          type="number"
+          name="maxMembers"
+          required
+          placeholder="Max Members"
+          className="input input-bordered w-full dark:bg-gray-700 dark:border-gray-600"
+          min={1}
+        />
 
         <div>
-            <label htmlFor="description" className="block text-sm font-medium text-gray-400 mb-2">Group Description</label>
-            <textarea
-                name="description"
-                id="description"
-                rows="4" // Increased rows for better appearance
-                required
-                placeholder="Provide a detailed description of your group"
-                className={inputStyle}
-            />
+          <label className="block mb-1 font-medium">Start Date</label>
+          <input
+            type="date"
+            name="startDate"
+            required
+            className="input input-bordered w-full dark:bg-gray-700 dark:border-gray-600"
+          />
         </div>
 
-        <div>
-            <label htmlFor="location" className="block text-sm font-medium text-gray-400 mb-2">Meeting Location</label>
-            <input
-                type="text"
-                name="location"
-                id="location"
-                required
-                placeholder="e.g., Online, City Park, Community Center"
-                className={inputStyle}
-            />
-        </div>
+        <input
+          type="text"
+          name="imageUrl"
+          required
+          placeholder="Image URL"
+          className="input input-bordered w-full dark:bg-gray-700 dark:border-gray-600"
+        />
 
-        <div>
-            <label htmlFor="maxMembers" className="block text-sm font-medium text-gray-400 mb-2">Maximum Members</label>
-            <input
-                type="number"
-                name="maxMembers"
-                id="maxMembers"
-                required
-                placeholder="e.g., 20"
-                min="1" // Ensure at least 1 member
-                className={inputStyle}
-            />
-        </div>
-
-        <div>
-            <label htmlFor="startDate" className="block text-sm font-medium text-gray-400 mb-2">Start Date</label>
-            <input
-                type="date"
-                name="startDate"
-                id="startDate"
-                required
-                className={inputStyle}
-            />
-        </div>
-
-        <div>
-            <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-400 mb-2">Group Image URL</label>
-            <input
-                type="url" // Use type="url" for image URLs
-                name="imageUrl"
-                id="imageUrl"
-                required
-                placeholder="https://example.com/image.jpg"
-                className={inputStyle}
-            />
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-6"> {/* Increased gap for better spacing */}
-            <div>
-                <label htmlFor="userName" className="block text-sm font-medium text-gray-400 mb-2">Your Name</label>
-                <input
-                    type="text"
-                    name="userName"
-                    id="userName"
-                    readOnly
-                    value={users?.displayName || ''} // Handle undefined users
-                    className={readOnlyInputStyle}
-                />
-            </div>
-            <div>
-                <label htmlFor="userEmail" className="block text-sm font-medium text-gray-400 mb-2">Your Email</label>
-                <input
-                    type="email"
-                    name="userEmail"
-                    id="userEmail"
-                    readOnly
-                    value={users?.email || ''} // Handle undefined users
-                    className={readOnlyInputStyle}
-                />
-            </div>
+        <div className="grid md:grid-cols-2 gap-4">
+          <input
+            type="text"
+            readOnly
+            value={users?.displayName || "Anonymous"}
+            className="input input-bordered w-full dark:bg-gray-700 dark:border-gray-600"
+          />
+          <input
+            type="email"
+            readOnly
+            value={users?.email || ""}
+            className="input input-bordered w-full dark:bg-gray-700 dark:border-gray-600"
+          />
         </div>
 
         <button
-            type="submit"
-            className="w-full py-3 px-6 rounded-lg bg-[#7B68EE] text-white font-semibold text-lg hover:bg-[#6A5ACD] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#7B68EE] focus:ring-offset-2 focus:ring-offset-[#2C2C4A]"
+          type="submit"
+          disabled={loading}
+          className="btn btn-secondary hover:bg-secondary-focus w-full"
         >
-            Add Group
+          {loading ? "Creating..." : "Create Group"}
         </button>
       </form>
     </div>
   );
 }
 
-export default DashboardAddItem;
+export default Creategroup;

@@ -1,82 +1,170 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Valuecontext } from "../../Root/Root";
-import { Helmet } from "react-helmet-async";
+import React, { useState, useEffect, useContext } from 'react';
 
-function DashboardMyItems() {
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+
+import { Helmet } from 'react-helmet-async';
+import { FaUsersCog } from 'react-icons/fa';
+import { Valuecontext } from '../../Root/Root';
+import UpdateGroupModal from '../../Components/UpdateGroupModal';
+
+function Mygroups() {
   const { users } = useContext(Valuecontext);
   const [groups, setGroups] = useState([]);
+  const [selectedGroup, setSelectedGroup] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const fetchGroups = () => {
+    fetch('https://hobyhub-server.vercel.app/groups')
+      .then(res => res.json())
+      .then(data => setGroups(data))
+      .catch(() => {});
+  };
 
   useEffect(() => {
-    // Only fetch if users and users.email are available to avoid errors
-    if (users?.email) {
-      fetch("https://hobyhub-server.vercel.app/groups")
-        .then((res) => res.json())
-        .then((data) => {
-          // Filter groups based on the current user's email
-          const myGroups = data.filter((group) => group.userEmail === users.email);
-          setGroups(myGroups);
+    fetchGroups();
+  }, []);
+
+  const handleUpdateClick = (group) => {
+    setSelectedGroup(group);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setSelectedGroup(null);
+  };
+
+  const handleDeleteClick = (groupId) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`https://hobyhub-server.vercel.app/groups/${groupId}`, {
+          method: 'DELETE',
         })
-        .catch((err) => console.error("Failed to fetch my groups:", err)); // More specific error message
-    } else {
-        // Clear groups if user is not logged in or email is not available
-        setGroups([]);
-    }
-  }, [users]); // Dependency array includes 'users' to refetch when user data changes
+          .then(res => res.json())
+          .then(data => {
+            if (data.deletedCount) {
+              Swal.fire('Deleted!', 'Your group has been deleted.', 'success');
+              fetchGroups();
+            }
+          })
+          .catch(err => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Delete failed',
+              text: err.message || 'Something went wrong!'
+            });
+          });
+      }
+    });
+  };
+
+  const handleViewClick = (groupId) => {
+    navigate(`/groupDetails/${groupId}`);
+  };
+
+  const userGroups = groups.filter(group => group.userEmail === users?.email);
 
   return (
-    // Apply the Storeshop main background and default text color, with consistent padding
-    <div className="p-6 md:p-8 bg-[#1A1A2E] text-gray-200 min-h-screen">
+    <div className="p-6 md:p-2  max-w-8xl  mx-auto dark:bg-gray-900  min-h-screen text-black dark:text-white transition-colors duration-300">
       <Helmet>
-        <title>Dashboard | My Items</title>
+        <title>HobbyHub | My Groups</title>
       </Helmet>
 
-      {/* Page Title - Consistent with Storeshop dashboard headers */}
-      <h2 className="text-2xl md:text-3xl font-bold mb-8 text-gray-100">My Groups</h2>
-
-      {/* Table Container - Mimicking Storeshop card style */}
-      <div className="overflow-x-auto bg-[#2C2C4A] rounded-xl shadow-xl border border-gray-800">
-        <table className="min-w-full divide-y divide-gray-700"> {/* Use min-w-full and divide-y for borders */}
-          <thead className="bg-[#2C2C4A]"> {/* Table header background matches card background */}
-            <tr>
-              {/* Table Headers - Text color and padding matching Storeshop's table headers */}
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">#</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Name</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Category</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Location</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Start Date</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Members</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-800"> {/* Body rows separated by a dark border */}
-            {groups.length === 0 ? (
-              <tr>
-                <td colSpan="6" className="text-center py-6 text-gray-400">
-                  {users?.email ? "You haven't added any groups yet." : "Please log in to see your groups."}
-                </td>
-              </tr>
-            ) : (
-              groups.map((group, index) => (
-                <tr
-                  key={group._id}
-                  // Hover effect like Storeshop's recent activity table
-                  className="bg-[#2C2C4A] hover:bg-[#3A3A5A] transition duration-200"
-                >
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{index + 1}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-100">{group.groupName}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{group.category}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{group.location}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                    {new Date(group.startDate).toLocaleDateString()}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{group.maxMembers}</td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+      {/* Heading */}
+      <div className="text-center mb-8 ">
+        <h1 className="text-3xl md:text-4xl font-bold flex justify-center items-center gap-2">
+          <FaUsersCog className="text-secondary" />
+          My Hobby Groups
+        </h1>
+        <p className="text-gray-600 dark:text-gray-400 mt-2">Manage, update, or remove your created groups.</p>
       </div>
+
+      {/* Table */}
+      <div className="overflow-x-auto  bg-white dark:bg-gray-900 rounded-lg shadow-xl ">
+  <table className="table max-w-full text-sm">
+    <thead className="bg-gray-300 dark:bg-gray-500 text-gray-800 dark:text-gray-200">
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Location</th>
+        <th>Start Date</th>
+        <th>Max Members</th>
+        <th className="text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {userGroups.length === 0 ? (
+        <tr>
+          <td colSpan="7" className="text-center py-10 text-gray-500 dark:text-gray-400">
+            You haven’t created any groups yet.
+          </td>
+        </tr>
+      ) : (
+        userGroups.map((group, i) => (
+          <tr
+            key={group._id}
+            className={`transition ${
+              i % 2 === 0
+                ? 'bg-white dark:bg-gray-900'
+                : ' bg-gray-50 dark:bg-gray-800'
+            } hover:bg-blue-50 dark:hover:bg-gray-700`}
+          >
+            <td className="px-4 py-2">{i + 1}</td>
+            <td className="px-4 py-2 font-medium">{group.groupName}</td>
+            <td className="px-4 py-2">{group.category}</td>
+            <td className="px-4 py-2">{group.location}</td>
+            <td className="px-4 py-2">{new Date(group.startDate).toLocaleDateString()}</td>
+            <td className="px-4 py-2">{group.maxMembers}</td>
+            <td className="px-4 py-2">
+              <div className="flex  gap-2 justify-center">
+                <button
+                  onClick={() => handleViewClick(group._id)}
+                  className="btn btn-xs md:btn-sm btn-outline btn-success"
+                >
+                  Info
+                </button>
+                <button
+                  onClick={() => handleUpdateClick(group)}
+                  className="btn btn-xs md:btn-sm btn-outline btn-warning"
+                >
+                  Update
+                </button>
+                <button
+                  onClick={() => handleDeleteClick(group._id)}
+                  className="btn btn-xs md:btn-sm btn-outline btn-error"
+                >
+                  Delete
+                </button>
+              </div>
+            </td>
+          </tr>
+        ))
+      )}
+    </tbody>
+  </table>
+</div>
+
+
+      {/* Update Modal */}
+      <UpdateGroupModal
+        group={selectedGroup}
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        onUpdate={fetchGroups}
+      />
     </div>
   );
 }
 
-export default DashboardMyItems;
+export default Mygroups;

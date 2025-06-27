@@ -267,7 +267,7 @@ function Home() {
               type="email"
               required
               placeholder="Enter your email"
-              className="input input-bordered w-full max-w-xs"
+              className="input input-bordered bg-white text-black w-full max-w-xs"
             />
             <button type="submit" className="btn btn-secondary px-8">
               Subscribe
