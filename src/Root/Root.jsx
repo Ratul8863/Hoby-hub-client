@@ -5,6 +5,7 @@ import Footer from '../Components/Footer.jsX'
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { auth } from '../Firebase/Firebase.config';
 import Swal from 'sweetalert2';
+import DashboardLayout from '../DashboardLayout/DashboardLayout';
 
 export const Valuecontext = createContext();
 
@@ -98,10 +99,11 @@ const handlevalues = {
   return (
   <div className={` dark:bg-gray-900 dark:text-white ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-[#F8F8F8] text-black'}`}>
  <Valuecontext.Provider value={handlevalues} >
-
-         <div className='max-w-[1400px] mx-auto '>
+  <Navbar  />
+ 
+         <div className='max-w-7xl mx-auto '>
     
-        <Navbar  />
+      
         
         {looading ? (
           <div className="flex justify-center items-center min-h-[60vh]">

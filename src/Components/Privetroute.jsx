@@ -10,7 +10,8 @@ const location =useLocation()
 // console.log(location)
 const {users,looading} = useContext(Valuecontext)
 
-// console.log(users,looading,location)
+
+console.log(users)
 
 if (looading)
 {

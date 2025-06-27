@@ -57,13 +57,24 @@ function Navbar() {
           >
             My Groups
           </NavLink>
+
+           <NavLink
+            to="/dashboard"
+            onClick={() => setMenuOpen(false)}
+            className={({ isActive }) =>
+              isActive ? "text-orange-600 font-semibold" : undefined
+            }
+          >
+            Dashboard
+          </NavLink>
         </>
       )}
     </>
   );
 
   return (
-    <nav className="sticky top-0 z-50 bg-white dark:bg-[#0D1128] dark:text-white shadow-md px-6 md:px-12 py-4">
+    <div className="sticky top-0 z-500 bg-white dark:bg-[#0D1128]  dark:text-white shadow-md"> 
+      <nav className="   max-w-7xl mx-auto   px-4 md:px-4 py-4">
       <Fade direction="down" triggerOnce={true}>
         <div className="flex justify-between items-center">
           {/* Left - Logo & Mobile Menu */}
@@ -244,6 +255,7 @@ function Navbar() {
         </div>
       </div>
     </nav>
+    </div>
   );
 }
 

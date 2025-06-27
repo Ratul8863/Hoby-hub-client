@@ -7,84 +7,80 @@ import Register from "../Pages/Register";
 import ErrorPages from "../Pages/ErrorPages";
 import Mygroups from "../Pages/Mygroups";
 import Creategroup from "../Pages/Creategroup";
-
 import Groupdetail from "../Pages/Groupdetail";
 import Updategroup from "../Pages/Updategroup";
 import Privetroute from "../Components/Privetroute";
 import About from "../Pages/About/Contact/About";
 import Contact from "../Pages/About/Contact/Contact";
 import Support from "../Pages/About/Contact/Support";
-
-
-
-
+import DashboardLayout from "../DashboardLayout/DashboardLayout";
+import DashboardHome from "../DashboardLayout/DashPages/DashboardHome";
+import DashboardAllItems from "../DashboardLayout/DashPages/DashboardAllItems";
+import DashboardAddItem from "../DashboardLayout/DashPages/DashboardAddItem";
+import DashboardMyItems from "../DashboardLayout/DashPages/DashboardMyItems";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />, // Use element not Component
-    errorElement: <ErrorPages />, // This will catch any error in this route branch
+    element: <Root />,
+    errorElement: <ErrorPages />,
     children: [
+      { index: true, element: <Home /> },
+      { path: "/allgroups", element: <Allgroups /> },
+      { path: "/login", element: <Login /> },
+      { path: "/register", element: <Register /> },
       {
-        index: true,
-        // loader: () => fetch('/data.json'),
-       
-        element: <Home />,
-        // hydrateFallbackElement : <Loading></Loading>
+        path: "/mygroups",
+        loader: () => fetch('https://hobyhub-server.vercel.app/groups'),
+        element: (
+          <Privetroute>
+            <Mygroups />
+          </Privetroute>
+        )
       },
       {
-        path: "/Allgroups",
-        // loader: () => fetch('/data.json'),
-       
-        element:  <Allgroups></Allgroups>
-        // hydrateFallbackElement : <Loading></Loading>
+        path: "/creategroup",
+        element: (
+          <Privetroute>
+            <Creategroup />
+          </Privetroute>
+        )
       },
       {
-        path: "/Login",
-        element: <Login />
+        path: "/updategroups/:id",
+        loader: ({ params }) =>
+          fetch(`https://hobyhub-server.vercel.app/groups/${params.id}`),
+        element: <Updategroup />
       },
       {
-        path: "/Register",
-        element: <Register />
-      },
-      {
-        path: "/myGroups",
-         loader : () => fetch('https://hobyhub-server.vercel.app/groups'),
-        element: <Privetroute>
-          <Mygroups></Mygroups>
-        </Privetroute>
-      },
-      {
-        path: "/createGroup",
-        element: <Privetroute>
-          <Creategroup></Creategroup>
-        </Privetroute>
-      },
-      {
-        path: "/Updategroups/:id",
-          loader : ({params}) => fetch(`https://hobyhub-server.vercel.app/groups/${params.id}`),
-        element: <Updategroup></Updategroup>
-      },
-        {
         path: "/groupdetails/:id",
-          loader : ({params}) => fetch(`https://hobyhub-server.vercel.app/groups/${params.id}`),
-        element: <Privetroute><Groupdetail></Groupdetail></Privetroute>
+        loader: ({ params }) =>
+          fetch(`https://hobyhub-server.vercel.app/groups/${params.id}`),
+        element: (
+          <Privetroute>
+            <Groupdetail />
+          </Privetroute>
+        )
       },
+      { path: "/about", element: <About /> },
+      { path: "/contact", element: <Contact /> },
+      { path: "/support", element: <Support /> },
 
+      // ✅ NESTED DASHBOARD INSIDE ROOT
       {
-        path : "/about",
-         element: <About />
-      },
-      {
-        path : "/contact",
-         element: <Contact />
-      },
-
-      {
-        path : "/support",
-         element: <Support />
-      },
-      
+        path: "/dashboard",
+        element: (
+          <Privetroute>
+            <DashboardLayout />
+          </Privetroute>
+        ),
+        children: [
+          { index: true, element: <DashboardHome /> },
+          { path: "all-items", element: <DashboardAllItems /> },
+          { path: "add-item", element: <DashboardAddItem /> },
+          { path: "my-items", element: <DashboardMyItems /> },
+        ]
+      }
     ]
-    }
-])
+  }
+]);

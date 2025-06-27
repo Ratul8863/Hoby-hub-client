@@ -73,13 +73,13 @@ function Mygroups() {
   const userGroups = groups.filter(group => group.userEmail === users?.email);
 
   return (
-    <div className="p-6 md:p-10 dark:bg-gray-900  min-h-screen text-black dark:text-white transition-colors duration-300">
+    <div className="p-6 md:p-2  max-w-8xl  mx-auto dark:bg-gray-900  min-h-screen text-black dark:text-white transition-colors duration-300">
       <Helmet>
         <title>HobbyHub | My Groups</title>
       </Helmet>
 
       {/* Heading */}
-      <div className="text-center mb-8">
+      <div className="text-center mb-8 ">
         <h1 className="text-3xl md:text-4xl font-bold flex justify-center items-center gap-2">
           <FaUsersCog className="text-secondary" />
           My Hobby Groups
@@ -88,8 +88,8 @@ function Mygroups() {
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto bg-white dark:bg-gray-900 rounded-lg shadow-xl">
-  <table className="table w-full text-sm">
+      <div className="overflow-x-auto  bg-white dark:bg-gray-900 rounded-lg shadow-xl ">
+  <table className="table max-w-full text-sm">
     <thead className="bg-gray-300 dark:bg-gray-500 text-gray-800 dark:text-gray-200">
       <tr>
         <th>#</th>

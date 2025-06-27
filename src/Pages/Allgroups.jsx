@@ -49,7 +49,7 @@ function Allgroups() {
       <Helmet><title>HobbyHub | All Groups</title></Helmet>
 
       <Fade direction='bottom-left' triggerOnce>
-        <div className="min-h-screen px-4 py-10 dark:bg-gray-900 dark:text-white max-w-7xl mx-auto">
+        <div className="min-h-screen px-4 py-10 dark:bg-gray-900 dark:text-white max-w-full mx-auto">
           <h2 className="text-3xl font-bold text-center mb-6 text-primary">Explore All Hobby Groups</h2>
 
           {/* Search and Filter Toggle */}
@@ -111,22 +111,24 @@ function Allgroups() {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {filteredGroups.map(group => (
-                <div key={group._id} className="bg-base-100 dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all flex flex-col justify-between">
-                  <img
-                    src={group.imageUrl || "https://via.placeholder.com/400"}
-                    alt={group.groupName}
-                    className="h-40 w-full object-cover"
-                  />
-                  <div className="p-4 space-y-1">
-                    <h3 className="text-lg font-bold text-primary">{group.groupName}</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">Category: {group.category}</p>
-                    <p className="text-sm text-cyan-600">Location: {group.location}</p>
-                    <p className="text-sm text-pink-600">Max Members: {group.maxMembers}</p>
-                    <Link to={`/groupdetails/${group._id}`}>
-                      <button className="mt-3 w-full btn btn-sm btn-secondary hover:btn-primary">See More</button>
-                    </Link>
+               <div className="rounded-2xl dark:bg-gray-800 bg-base-100 hover:shadow-xl overflow-hidden shadow-sm  cursor-pointer transition-shadow flex flex-col h-full">
+                    <img
+                      src={group.imageUrl || "https://via.placeholder.com/400"}
+                      alt={group.groupName}
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="p-4 flex flex-col flex-grow">
+                      <h4 className="text-xl font-bold">{group.groupName}</h4>
+                      <p className="text-sm text-cyan-600">Category: {group.category}</p>
+                      <p className="text-sm text-fuchsia-700 dark:text-amber-400">Location: {group.location}</p>
+                      <p className="text-sm text-red-600 dark:text-amber-400 mb-4">
+                        Max Members: {Number(group.maxMembers).toLocaleString()}
+                      </p>
+                      <button className="mt-auto btn btn-secondary rounded-lg btn-sm w-full">
+                        See More
+                      </button>
+                    </div>
                   </div>
-                </div>
               ))}
             </div>
           )}

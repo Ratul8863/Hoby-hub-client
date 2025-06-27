@@ -86,44 +86,37 @@ function Home() {
       </div>
 
       {/* Hero Slider */}
-      <Fade direction="right" triggerOnce={true} damping={0.5}>
-        <section className="rounded-lg  shadow-lg max-w-6xl mx-auto" style={{ height: "65vh" }}>
-          <Slider {...sliderSettings}>
-            {[
-              {
-                image:
-                  "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80",
-                title: "Discover Local Hobby Groups",
-                subtitle: "Connect with like-minded people and explore new passions in your area.",
-              },
-              {
-                image:
-                  "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=80",
-                title: "Start Your Own Hobby Group",
-                subtitle: "Share your passion and invite others to join your community.",
-              },
-              {
-                image:
-                  "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1200&q=80",
-                title: "Join Exciting Events & Meetups",
-                subtitle: "Participate in fun activities and make lifelong friends.",
-              },
-            ].map((slide, index) => (
-              <div key={index} className="relative h-[65vh] rounded-lg overflow-hidden shadow-lg">
-                <img
-                  src={slide.image}
-                  alt={slide.title}
-                  className="w-full h-full object-cover brightness-75"
-                />
-                <div className="absolute inset-0 flex flex-col justify-center items-center text-white px-4 text-center">
-                  <h2 className="text-3xl md:text-5xl font-bold mb-2">{slide.title}</h2>
-                  <p className="text-lg md:text-xl max-w-xl">{slide.subtitle}</p>
-                </div>
+       <Fade direction='right' triggerOnce={true} damping={0.5}>
+<section>
+        <Slider {...sliderSettings}>
+          {[
+            {
+              image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80",
+              title: "Discover Local Hobby Groups",
+              subtitle: "Connect with like-minded people and explore new passions in your area.",
+            },
+            {
+              image: "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=80",
+              title: "Start Your Own Hobby Group",
+              subtitle: "Share your passion and invite others to join your community.",
+            },
+            {
+              image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1200&q=80",
+              title: "Join Exciting Events & Meetups",
+              subtitle: "Participate in fun activities and make lifelong friends.",
+            },
+          ].map((slide, index) => (
+            <div key={index} className="relative h-64 md:h-96 rounded-lg overflow-hidden shadow-lg">
+              <img src={slide.image} alt={slide.title} className="w-full h-full object-cover brightness-75" />
+              <div className="absolute inset-0 flex flex-col justify-center items-center text-white px-4 text-center">
+                <h2 className="text-3xl md:text-5xl font-bold mb-2">{slide.title}</h2>
+                <p className="text-lg md:text-xl max-w-xl">{slide.subtitle}</p>
               </div>
-            ))}
-          </Slider>
-        </section>
-      </Fade>
+            </div>
+          ))}
+        </Slider>
+      </section>
+  </Fade>
 
       {/* Featured Groups */}
       <Fade direction="bottom-left" triggerOnce={true}>
@@ -139,7 +132,7 @@ function Home() {
                   onClick={() => window.scrollTo(0, 0)}
                   to={`/groupdetails/${group._id}`}
                 >
-                  <div className="rounded-lg dark:bg-gray-800 bg-base-100 hover:shadow-xl overflow-hidden shadow-sm  cursor-pointer transition-shadow flex flex-col h-full">
+                  <div className="rounded-2xl dark:bg-gray-800 bg-base-100 hover:shadow-xl overflow-hidden shadow-sm  cursor-pointer transition-shadow flex flex-col h-full">
                     <img
                       src={group.imageUrl || "https://via.placeholder.com/400"}
                       alt={group.groupName}
@@ -152,7 +145,7 @@ function Home() {
                       <p className="text-sm text-red-600 dark:text-amber-400 mb-4">
                         Max Members: {Number(group.maxMembers).toLocaleString()}
                       </p>
-                      <button className="mt-auto btn btn-primary btn-sm w-full">
+                      <button className="mt-auto btn btn-secondary rounded-lg btn-sm w-full">
                         See More
                       </button>
                     </div>
@@ -168,8 +161,8 @@ function Home() {
 
       {/* Categories Section */}
       <Fade direction="up" triggerOnce={true}>
-        <section className="max-w-5xl mx-auto">
-          <h3 className="text-4xl font-semibold mb-8 text-center text-primary">Browse by Categories</h3>
+        <section className=" mx-auto">
+          <h3 className="text-4xl font-semibold mb-8 text-center text-primary">Categories We Have</h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-6 text-center">
             {categories.map(({ name, icon }) => (
               <div
@@ -186,7 +179,7 @@ function Home() {
 
       {/* Promotional Banner */}
       <Fade direction="right" triggerOnce={true}>
-        <section className="bg-gradient-to-r from-primary to-secondary rounded-lg p-12 text-center text-white shadow-lg max-w-4xl mx-auto">
+        <section className="bg-gradient-to-r from-primary to-secondary rounded-lg p-12 text-center text-white shadow-lg max-w-full mx-auto">
           <h3 className="text-3xl font-semibold mb-4">Join HobbyHub Today!</h3>
           <p className="mb-6 max-w-xl mx-auto">
             Create your own group, join meetups, and connect with others who share your passion.
@@ -203,7 +196,7 @@ function Home() {
 
       {/* Blog Section */}
       <Fade direction="left" triggerOnce={true}>
-        <section className="max-w-5xl mx-auto">
+        <section className="max-w-full mx-auto">
           <h3 className="text-4xl font-semibold mb-8 text-center text-primary">Latest from Our Blog</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {blogs.map(({ id, title, snippet, url }) => (
@@ -229,7 +222,7 @@ function Home() {
 
      {/* Promotional & Offers Section */}
 <Fade direction="up" triggerOnce={true}>
-  <section className="bg-gray-800 dark:bg-gray-900 rounded-lg p-10 max-w-5xl mx-auto shadow-lg text-white text-center">
+  <section className="bg-gray-800 dark:bg-gray-900 rounded-lg p-10 max-w-full mx-auto shadow-lg text-white text-center">
     <h3 className="text-4xl font-bold mb-4 text-lime-400">Special Offers Just for You!</h3>
     <p className="mb-6 max-w-3xl mx-auto text-lg text-gray-300">
       Join HobbyHub now and get exclusive early access to premium groups, event discounts, and free workshops.  
@@ -258,7 +251,7 @@ function Home() {
 
       {/* Newsletter Section */}
       <Fade direction="up" triggerOnce={true}>
-        <section className="bg-primary rounded-lg p-10 max-w-4xl mx-auto text-white text-center shadow-lg">
+        <section className="bg-primary rounded-lg p-10 max-w-full mx-auto text-white text-center shadow-lg">
           <h3 className="text-3xl font-semibold mb-4">Stay Updated with HobbyHub</h3>
           <p className="mb-6 max-w-lg mx-auto">
             Subscribe to our newsletter to get the latest updates, events, and exclusive offers.
