@@ -1,63 +1,116 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaTwitter, FaYoutube } from 'react-icons/fa';
 import { FaFacebook } from 'react-icons/fa6';
 import { Link, NavLink } from 'react-router-dom';
+import { Valuecontext } from '../Root/Root';
 
 function Footer() {
+  const { users } = useContext(Valuecontext);
+
+  const navLinks = [
+    { to: "/", label: "Home" },
+    { to: "/Allgroups", label: "All Groups" },
+  ];
+
+  const authLinks = [
+    { to: "/createGroup", label: "Create Group" },
+    { to: "/myGroups", label: "My Groups" },
+    { to: "/dashboard", label: "Dashboard" },
+  ];
+
   return (
     <>
       {/* Top Section */}
-      <footer className=" bg-gradient-to-br from-slate-100 to-slate-200  dark:shadow-blue-600 dark:from-gray-950 dark:to-gray-800 text-gray-800 dark:text-gray-200 px-10 py-12 grid grid-cols-2 md:justify-center md:grid-cols-3 gap-8">
-        <div className=' md:text-center'>
+      <footer className="bg-gradient-to-br from-slate-100 to-slate-200 dark:from-gray-950 dark:to-gray-800 text-gray-800 dark:text-gray-200 px-10 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        
+        {/* Navigation Links */}
+        <div className="md:text-center">
           <h6 className="text-xl font-semibold mb-4">Hobbies</h6>
-          <ul className="space-y-2">
-            {["Drawing & Painting",
-    "Photography",
-    "Video Gaming",
-    "Fishing",
-    "Running",
-    "Cooking",
-    "Reading",
-    "Writing",].map((item, i) => (
-              <li key={i} >
-            <a className="hover:underline hover:text-blue-600 dark:hover:text-blue-400  transition duration-200 cursor-pointer" >
-{item}
-            </a>
-                  
-   
+          <ul className="space-y-2 flex flex-col items-start md:items-center">
+            {navLinks.map(({ to, label }) => (
+              <li key={to}>
+                <NavLink
+                  to={to}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-orange-600 font-semibold"
+                      : "hover:underline hover:text-blue-600 dark:hover:text-blue-400 transition"
+                  }
+                >
+                  {label}
+                </NavLink>
               </li>
             ))}
+            {users &&
+              authLinks.map(({ to, label }) => (
+                <li key={to}>
+                  <NavLink
+                    to={to}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-orange-600 font-semibold"
+                        : "hover:underline hover:text-blue-600 dark:hover:text-blue-400 transition"
+                    }
+                  >
+                    {label}
+                  </NavLink>
+                </li>
+              ))}
           </ul>
         </div>
 
-        <div className='md:text-center'>
+        {/* Company Info */}
+        <div className="md:text-center">
           <h6 className="text-xl font-semibold mb-4">Company</h6>
           <ul className="space-y-2">
-            {["About Us", "Contact", "Support"].map((item, i) => (
-              <li key={i}>
-                <a className="hover:underline hover:text-blue-600 dark:hover:text-blue-400 transition duration-200 cursor-pointer">
+            {["About", "Contact", "Support"].map((item) => (
+              <li key={item}>
+                <NavLink
+                  to={`/${item.toLowerCase()}`}
+                  className="hover:underline hover:text-blue-600 dark:hover:text-blue-400 transition duration-200"
+                >
                   {item}
-                </a>
+                </NavLink>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className='md:text-center'>
+        {/* Legal */}
+        <div className="md:text-center">
           <h6 className="text-xl font-semibold mb-4">Legal</h6>
-          <ul className="space-y-2">
-            {["Terms of Use", "Privacy Policy", "Cookie Policy"].map((item, i) => (
-              <li key={i}>
-                <a className="hover:underline hover:text-blue-600 dark:hover:text-blue-400 transition duration-200 cursor-pointer">
-                  {item}
-                </a>
-              </li>
-            ))}
-          </ul>
+         <ul className="space-y-2">
+  <li>
+    <NavLink
+      to="/terms"
+      className="hover:underline hover:text-blue-600 dark:hover:text-blue-400 transition duration-200"
+    >
+      Terms of Use
+    </NavLink>
+  </li>
+  <li>
+    <NavLink
+      to="/privacy"
+      className="hover:underline hover:text-blue-600 dark:hover:text-blue-400 transition duration-200"
+    >
+      Privacy Policy
+    </NavLink>
+  </li>
+  <li>
+    <NavLink
+      to="/cookies"
+      className="hover:underline hover:text-blue-600 dark:hover:text-blue-400 transition duration-200"
+    >
+      Cookie Policy
+    </NavLink>
+  </li>
+</ul>
+
         </div>
       </footer>
 
       {/* Bottom Section */}
+     {/* Bottom Section */}
       <footer className="flex  flex-col md:flex-row items-center justify-between bg-slate-300 dark:bg-gray-900 px-10 py-6 text-sm text-gray-700 dark:text-gray-300 border-t border-gray-400 dark:border-gray-600">
         {/* Branding */}
         <Link onClick={()=>window.scrollTo(0,0)} to="/" className="flex items-center gap-3 mb-4 md:mb-0">
@@ -90,6 +143,7 @@ function Footer() {
           </a>
         </div>
       </footer>
+    
     </>
   );
 }

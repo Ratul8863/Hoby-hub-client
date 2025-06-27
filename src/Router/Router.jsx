@@ -18,6 +18,9 @@ import DashboardHome from "../DashboardLayout/DashPages/DashboardHome";
 import DashboardAllItems from "../DashboardLayout/DashPages/DashboardAllItems";
 import DashboardAddItem from "../DashboardLayout/DashPages/DashboardAddItem";
 import DashboardMyItems from "../DashboardLayout/DashPages/DashboardMyItems";
+import TermsOfUse from "../Pages/TermsOfUse";
+import PrivacyPolicy from "../Pages/PrivacyPolicy";
+import CookiePolicy from "../Pages/CookiePolicy";
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +49,9 @@ export const router = createBrowserRouter([
           </Privetroute>
         )
       },
+      { path: "terms", element: <TermsOfUse /> },
+  { path: "privacy", element: <PrivacyPolicy /> },
+  { path: "cookies", element: <CookiePolicy /> },
       {
         path: "/updategroups/:id",
         loader: ({ params }) =>
