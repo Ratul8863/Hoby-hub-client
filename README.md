@@ -6,7 +6,7 @@
 
 ---
 
-![Project Screenshot](https://i.ibb.co/BVDHtZZ7/Screenshot-2025-06-25-144117.png)
+![Project Screenshot](https://i.ibb.co/MDfw3p23/Screenshot-2025-06-27-163441.png)
 
 ---
 
